@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>RePlank EcoBoards | Recycled Chips & Biscuit Packets Upcycling</title>
+  <title>RePlank EcoBoards | Plastic Board Wholesalers & Retail</title>
   
   <!-- 100% SELF-CONTAINED CSS: NO EXTERNAL NETWORK CALLS REQUIRED TO RENDER -->
   <style>
@@ -39,9 +39,8 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* Container & Layout */
     .container {
-      max-width: 1140px;
+      max-width: 1160px;
       margin: 0 auto;
       padding: 0 16px;
     }
@@ -70,8 +69,8 @@
       color: inherit;
     }
     .logo-badge {
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       border-radius: 14px;
       background: var(--forest-800);
       color: #f7f3ea;
@@ -82,7 +81,7 @@
       border: 1px solid rgba(82, 183, 136, 0.4);
     }
     .brand-title {
-      font-size: 20px;
+      font-size: 21px;
       font-weight: 900;
       color: var(--forest-800);
       letter-spacing: -0.5px;
@@ -92,7 +91,7 @@
       font-weight: 800;
       color: var(--wood-600);
       background: #ede4d4;
-      padding: 2px 6px;
+      padding: 2px 7px;
       border-radius: 6px;
       margin-left: 4px;
     }
@@ -105,7 +104,7 @@
     /* Search bar */
     .search-box {
       flex: 1;
-      max-width: 380px;
+      max-width: 360px;
       position: relative;
     }
     .search-input {
@@ -132,7 +131,7 @@
       opacity: 0.5;
     }
 
-    /* Big buttons */
+    /* Big tactile buttons */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -259,7 +258,7 @@
     .hero-desc {
       font-size: 13px;
       color: rgba(67, 40, 24, 0.85);
-      max-width: 640px;
+      max-width: 660px;
     }
 
     /* Mode Switcher Card */
@@ -347,23 +346,39 @@
       color: #6c757d;
     }
 
-    /* Wholesale Portal Banner */
-    .wholesale-banner {
+    /* Plastic Board Wholesalers Prototype Showcase Banner */
+    .wholesalers-showcase {
       background: #ede1ce;
       border: 2px solid var(--wood-600);
-      border-radius: 18px;
-      padding: 16px;
-      margin: 16px 0;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      border-radius: 20px;
+      padding: 18px;
+      margin: 20px 0;
+      box-shadow: 0 4px 14px rgba(67, 40, 24, 0.08);
+    }
+    .wholesalers-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      align-items: center;
     }
     @media (min-width: 768px) {
-      .wholesale-banner {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
+      .wholesalers-grid {
+        grid-template-columns: 1fr 1.15fr;
       }
+    }
+    .wholesalers-img-box {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid var(--wood-400);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      background: #fff;
+    }
+    .wholesalers-img {
+      width: 100%;
+      height: 100%;
+      max-height: 260px;
+      object-fit: cover;
+      display: block;
     }
 
     /* Categories strip */
@@ -437,7 +452,7 @@
     }
     .card-img-wrap {
       position: relative;
-      height: 200px;
+      height: 210px;
       background: #ede4d4;
       overflow: hidden;
     }
@@ -493,7 +508,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(0, 0, 0, 0.45);
+      background: rgba(0, 0, 0, 0.55);
       color: #ffffff;
       font-size: 10px;
       font-weight: 700;
@@ -615,7 +630,7 @@
       position: fixed;
       inset: 0;
       z-index: 60;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.65);
       backdrop-filter: blur(4px);
       display: flex;
       align-items: center;
@@ -628,7 +643,7 @@
       border: 2px solid var(--wood-300);
       border-radius: 24px;
       width: 100%;
-      max-width: 680px;
+      max-width: 700px;
       max-height: 90vh;
       overflow-y: auto;
       box-shadow: 0 16px 40px rgba(0,0,0,0.25);
@@ -747,8 +762,8 @@
       margin-bottom: 10px;
     }
     .cart-item-img {
-      width: 60px;
-      height: 60px;
+      width: 64px;
+      height: 64px;
       border-radius: 10px;
       object-fit: cover;
       background: #ede4d4;
@@ -789,10 +804,15 @@
   <!-- ROOT CONTAINER FOR THE REPLANK APPLICATION -->
   <div id="app"></div>
 
-  <!-- PURE ZERO-DEPENDENCY JAVASCRIPT: GUARANTEED TO WORK IMMEDIATELY IN OPERA & ALL BROWSERS -->
+  <!-- PURE ZERO-DEPENDENCY JAVASCRIPT ENGINE (INR CURRENCY & PROTOTYPE IMAGES) -->
   <script>
     (function() {
-      // --- REPLANK DATA STORE WITH REAL PRODUCT IMAGERY ---
+      // Currency Formatter helper for Indian Rupee (₹)
+      function formatINR(amount) {
+        return '₹' + Math.round(amount).toLocaleString('en-IN');
+      }
+
+      // --- REPLANK PRODUCTS (ALL AMOUNTS IN INR ₹) ---
       const CATEGORIES = [
         { id: 'all', name: 'All Eco-Products', count: 11 },
         { id: 'boards', name: 'Recycled Plastic Boards', count: 3 },
@@ -807,9 +827,9 @@
           name: 'RePlank™ Standard Multi-Foil Board (18mm)',
           category: 'boards',
           tagline: 'High-density circular wood replacement made from 1,850 chips packets',
-          description: 'Our flagship 18mm high-density circular board. Manufactured by compressing shredded potato chips and biscuit packets under 200°C heat and high vacuum pressure. Retains beautiful silver-gold metallic speckles from the aluminum barrier foil. 100% waterproof, termite-proof, and can be cut, drilled, nailed, and routed just like marine plywood.',
-          retailPrice: 42.00,
-          wholesalePrice: 28.50,
+          description: 'Our flagship 18mm high-density circular board as shown in the prototype photo. Manufactured by compressing shredded potato chips and biscuit packets under 200°C heat and high vacuum pressure. Retains beautiful silver, blue, and gold metallic speckles from the aluminum barrier foil. 100% waterproof, termite-proof, and can be cut, drilled, nailed, and routed just like marine plywood.',
+          retailPrice: 2450.00,
+          wholesalePrice: 1650.00,
           wholesaleMOQ: 20,
           packetsSaved: 1850,
           co2SavedKg: 9.2,
@@ -818,20 +838,20 @@
           durability: '30+ Years Outdoor Life',
           thermalRating: 'R-1.85 Thermal Insulation',
           composition: '82% Multi-layer snack packaging (BOPP/Metalized PET/PE), 18% clean LDPE binder matrix',
-          badge: 'Best Seller',
+          badge: 'Wholesale Hero',
           rating: 4.9,
           reviewsCount: 142,
-          finish: 'Warm Wood-Beige with Recycled Foil Shimmer',
-          imageUrl: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80'
+          finish: 'Recycled Foil Speckle with Dark Dense Polymer Core',
+          imageUrl: './assets/recycled-plastic-board-prototype.png'
         },
         {
           id: 'board-acoustic-12mm',
           name: 'RePlank™ Decorative Partition Board (12mm)',
           category: 'boards',
           tagline: 'Lightweight sound-dampening wall panels from biscuit wrappers',
-          description: 'Precision-calibrated 12mm panels designed for aesthetic wall cladding, false ceilings, room partitions, and acoustic baffling. Made primarily from heat-sealed biscuit and cookie foil wrappers which give it an earthy biscuit-beige hue with organic flecks.',
-          retailPrice: 32.00,
-          wholesalePrice: 21.80,
+          description: 'Precision-calibrated 12mm panels (8 ft × 4 ft prototype) designed for aesthetic wall cladding, false ceilings, room partitions, and acoustic baffling. Made primarily from heat-sealed biscuit and cookie foil wrappers which give it an earthy speckled finish with metallic flecks.',
+          retailPrice: 1850.00,
+          wholesalePrice: 1250.00,
           wholesaleMOQ: 30,
           packetsSaved: 1200,
           co2SavedKg: 6.0,
@@ -843,8 +863,8 @@
           badge: 'Popular',
           rating: 4.8,
           reviewsCount: 88,
-          finish: 'Biscuit Sand Matte',
-          imageUrl: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80'
+          finish: 'Biscuit Sand & Foil Speckle',
+          imageUrl: './assets/recycled-plastic-board-prototype.png'
         },
         {
           id: 'board-armor-25mm',
@@ -852,8 +872,8 @@
           category: 'boards',
           tagline: 'Industrial load-bearing decking & flooring board',
           description: 'Extra-thick 25mm compressed plastic composite engineered for heavy structural loads. Ideal for outdoor patio decking, mezzanine flooring, industrial shelving, and shipping container linings. Replaces hardwood timber planks with twice the weather resilience.',
-          retailPrice: 64.00,
-          wholesalePrice: 44.00,
+          retailPrice: 3600.00,
+          wholesalePrice: 2450.00,
           wholesaleMOQ: 15,
           packetsSaved: 2900,
           co2SavedKg: 14.5,
@@ -869,13 +889,35 @@
           imageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80'
         },
         {
+          id: 'furn-garden-bench',
+          name: 'RePlank™ Prototype All-Weather Garden Bench',
+          category: 'furniture',
+          tagline: 'Zero-maintenance bench made directly from RePlank 8x4 recycled boards',
+          description: 'As demonstrated in our prototype in use! Crafted entirely from 12mm and 18mm RePlank plastic boards with rust-proof stainless steel bolts. Designed for balconies, gardens, civic parks, and patio lounges. Will never decay, fade, splinter, or rust regardless of heavy monsoon rains, coastal moisture, or scorching sun.',
+          retailPrice: 8500.00,
+          wholesalePrice: 5800.00,
+          wholesaleMOQ: 5,
+          packetsSaved: 4500,
+          co2SavedKg: 22.5,
+          dimensions: '58" L × 18" D × 18" H (147cm × 46cm × 46cm)',
+          weight: '26 kg',
+          durability: '30+ Years Outdoor Weatherproof',
+          thermalRating: 'UV-Resistant Grade 8',
+          composition: '100% Recycled multilayer chips packaging boards with anti-rust steel fasteners',
+          badge: 'Prototype Verified',
+          rating: 4.9,
+          reviewsCount: 110,
+          finish: 'Speckled Recycled Foil Multi-Color Luster',
+          imageUrl: './assets/recycled-plastic-board-prototype.png'
+        },
+        {
           id: 'furn-dining-table',
           name: 'RePlank™ Canopy 6-Seater Dining Table',
           category: 'furniture',
           tagline: 'Artisan handcrafted dining centerpiece from 6,800 snack packets',
           description: 'A showstopping dining table that sparks environmental conversations. The tabletop is crafted from dense RePlank boards displaying iridescent hints of recycled snack wrappers, polished to a silky wooden-beige luster. Paired with a sturdy reclaimed timber frame.',
-          retailPrice: 340.00,
-          wholesalePrice: 225.00,
+          retailPrice: 18500.00,
+          wholesalePrice: 12800.00,
           wholesaleMOQ: 5,
           packetsSaved: 6800,
           co2SavedKg: 34.0,
@@ -891,35 +933,13 @@
           imageUrl: 'https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?auto=format&fit=crop&w=800&q=80'
         },
         {
-          id: 'furn-garden-bench',
-          name: 'RePlank™ Verdant All-Weather Park & Garden Bench',
-          category: 'furniture',
-          tagline: 'Zero-maintenance outdoor bench made from 4,500 snack packets',
-          description: 'Designed for balconies, gardens, civic parks, and patio lounges. Will never decay, fade, splinter, or rust regardless of heavy monsoon rains, salty coastal breeze, or scorching sun. Solid, comfortable, and deeply grounded in circularity.',
-          retailPrice: 185.00,
-          wholesalePrice: 124.00,
-          wholesaleMOQ: 5,
-          packetsSaved: 4500,
-          co2SavedKg: 22.5,
-          dimensions: '58" L × 24" D × 34" H (147cm × 61cm × 86cm)',
-          weight: '32 kg',
-          durability: '30+ Years Outdoor Weatherproof',
-          thermalRating: 'UV-Resistant Grade 8',
-          composition: '100% Recycled multilayer chips packaging boards with anti-rust steel fasteners',
-          badge: 'Weatherproof',
-          rating: 4.9,
-          reviewsCount: 110,
-          finish: 'Forest Green & Wooden Sand Accent',
-          imageUrl: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80'
-        },
-        {
           id: 'furn-lounge-chair',
           name: 'RePlank™ Solace Ergonomic Eco-Lounge Chair',
           category: 'furniture',
           tagline: 'Modern Scandinavian curves from 3,200 potato chip bags',
           description: 'Sculptural elegance meets environmental justice. Made by precision thermo-forming our 12mm RePlank boards into flowing organic curves. Hugs your posture comfortably and adds warm, sustainable earthy charm to any modern living room or reading nook.',
-          retailPrice: 155.00,
-          wholesalePrice: 105.00,
+          retailPrice: 6900.00,
+          wholesalePrice: 4800.00,
           wholesaleMOQ: 8,
           packetsSaved: 3200,
           co2SavedKg: 16.0,
@@ -940,8 +960,8 @@
           category: 'furniture',
           tagline: 'Indestructible home office desk with built-in cable conduits',
           description: 'An eco-friendly study desk built to withstand generations of busy student and remote work life. Features a water-tight recycled plastic board top that shrugs off pen marks, coffee rings, and laptop heat with ease.',
-          retailPrice: 220.00,
-          wholesalePrice: 148.00,
+          retailPrice: 11200.00,
+          wholesalePrice: 7800.00,
           wholesaleMOQ: 6,
           packetsSaved: 5100,
           co2SavedKg: 25.5,
@@ -962,8 +982,8 @@
           category: 'roofing',
           tagline: 'Drops indoor room temp by 4°C to 6°C using reflective snack foils',
           description: 'Revolutionary alternative to sizzling tin, GI, and hazardous asbestos sheets! By utilizing the natural high-reflectance aluminium barrier layer of potato chip packets on the upper face, this sheet reflects up to 88% of solar infrared rays. Inside temperatures remain noticeably cooler, reducing air conditioning electricity bills. Also dampens torrential rain noise by up to 60%.',
-          retailPrice: 26.50,
-          wholesalePrice: 17.80,
+          retailPrice: 980.00,
+          wholesalePrice: 680.00,
           wholesaleMOQ: 40,
           packetsSaved: 2100,
           co2SavedKg: 10.5,
@@ -984,8 +1004,8 @@
           category: 'roofing',
           tagline: 'Weatherproof roof peak seal from 850 biscuit wrappers',
           description: 'Molded interlocking ridge caps that seal roof peaks against cyclonic winds, driving rain, and bird nesting. Seamlessly matches ThermoReflect roof sheets for a unified, climate-adaptive roof installation.',
-          retailPrice: 14.00,
-          wholesalePrice: 8.90,
+          retailPrice: 450.00,
+          wholesalePrice: 290.00,
           wholesaleMOQ: 50,
           packetsSaved: 850,
           co2SavedKg: 4.25,
@@ -1006,8 +1026,8 @@
           category: 'bricks',
           tagline: 'Mortar-less Lego-style building brick made from 350 chip packets',
           description: 'A structural breakthrough in affordable sustainable building. These interlocking bricks fit together like building blocks with internal alignment lugs, eliminating the need for wet cement mortar. 3x faster construction speed, ultra-high compressive strength, zero water absorption (no dampness or efflorescence ever).',
-          retailPrice: 2.50,
-          wholesalePrice: 1.48,
+          retailPrice: 45.00,
+          wholesalePrice: 28.00,
           wholesaleMOQ: 250,
           packetsSaved: 350,
           co2SavedKg: 1.75,
@@ -1028,8 +1048,8 @@
           category: 'bricks',
           tagline: 'Permeable storm-water paver for green driveways & garden paths',
           description: 'Honeycomb interlocking pavers that reinforce turf and gravel while enabling 100% natural rainwater infiltration into groundwater aquifers. Built from heavy-duty recycled snack foils to support emergency vehicles and everyday car parking without rutting.',
-          retailPrice: 3.80,
-          wholesalePrice: 2.25,
+          retailPrice: 85.00,
+          wholesalePrice: 55.00,
           wholesaleMOQ: 150,
           packetsSaved: 480,
           co2SavedKg: 2.4,
@@ -1061,7 +1081,7 @@
         quantities: {}
       };
 
-      // Initialize default quantities
+      // Set default quantities
       PRODUCTS.forEach(p => {
         state.quantities[p.id] = state.isWholesale ? p.wholesaleMOQ : 1;
       });
@@ -1082,7 +1102,7 @@
         }, 3000);
       }
 
-      // --- ACTIONS ---
+      // --- WINDOW ACTION HANDLERS ---
       window.setCategory = function(catId) {
         setState({ activeCategory: catId });
       };
@@ -1134,7 +1154,7 @@
           });
         }
 
-        const totalDiverted = (product.packetsSaved * qty).toLocaleString();
+        const totalDiverted = (product.packetsSaved * qty).toLocaleString('en-IN');
         showToast(`🌱 Added ${qty}× ${product.name}! Diverted ${totalDiverted} packets.`);
         setState({ cartItems: cart });
       };
@@ -1189,7 +1209,7 @@
 
       window.submitOrder = function(e) {
         e.preventDefault();
-        const orderId = 'REPLANK-' + Math.floor(100000 + Math.random() * 900000);
+        const orderId = 'REPLANK-IN-' + Math.floor(100000 + Math.random() * 900000);
         setState({ orderPlaced: true, lastOrderId: orderId });
       };
 
@@ -1198,7 +1218,7 @@
         showToast('🎉 Order confirmed! Discarded packets diverted.');
       };
 
-      // --- RENDER ENGINE ---
+      // --- HTML RENDER FUNCTION ---
       function render() {
         const app = document.getElementById('app');
         if (!app) return;
@@ -1220,7 +1240,7 @@
         const totalCartPackets = state.cartItems.reduce((acc, i) => acc + i.packetsSaved * i.quantity, 0);
         const totalCartCO2 = state.cartItems.reduce((acc, i) => acc + (i.co2SavedKg || 5) * i.quantity, 0).toFixed(1);
         const cartSubtotal = state.cartItems.reduce((acc, i) => acc + i.price * i.quantity, 0);
-        const ecoDiscount = cartSubtotal > 100 ? cartSubtotal * 0.05 : 0;
+        const ecoDiscount = cartSubtotal > 5000 ? cartSubtotal * 0.05 : 0;
         const cartGrandTotal = cartSubtotal - ecoDiscount;
 
         let html = '';
@@ -1241,7 +1261,7 @@
                     <span class="brand-title">RePlank</span>
                     <span class="brand-pill">EcoBoards</span>
                   </div>
-                  <span class="brand-sub">Recycled Chips & Biscuit Packets</span>
+                  <span class="brand-sub">Plastic Board Wholesalers & Retail • India</span>
                 </div>
               </div>
 
@@ -1250,7 +1270,7 @@
                 <input
                   type="text"
                   class="search-input"
-                  placeholder="Search boards, furniture, roofs, bricks..."
+                  placeholder="Search 8x4 boards, furniture, roofs, bricks..."
                   value="${state.searchQuery}"
                   oninput="window.setSearch(this.value)"
                 />
@@ -1260,9 +1280,9 @@
                 <button
                   class="btn btn-outline"
                   onclick="window.setMode(${!state.isWholesale})"
-                  title="Toggle retail vs wholesale pricing"
+                  title="Toggle between Retail and Bulk Wholesale pricing"
                 >
-                  ${state.isWholesale ? '🏭 Wholesale Active' : '🌿 Retail Mode'}
+                  ${state.isWholesale ? '🏭 Wholesale Active (₹)' : '🌿 Retail Mode (₹)'}
                 </button>
 
                 <button class="cart-btn" onclick="window.toggleCart(true)">
@@ -1283,17 +1303,17 @@
                 <div>
                   <div class="hero-badge-row">
                     <span class="pill-green">100% Circular Upcycling</span>
-                    <span class="pill-wood">Chips & Biscuit Packet Recycling Chain</span>
+                    <span class="pill-wood">Multilayer Plastic (MLP) Chips & Biscuit Packets</span>
                   </div>
-                  <h1 class="hero-title">RePlank: Discarded Snack Foils to Indestructible Living</h1>
+                  <h1 class="hero-title">RePlank: Discarded Snack Foils to Indestructible Plastic Boards</h1>
                   <p class="hero-desc">
-                    We collect non-recyclable multi-layer plastics (potato chips bags, biscuit wrappers) and compress them into 100% waterproof, termite-proof recycled plastic boards for <strong>designer furniture</strong>, <strong>cooling roofs</strong>, and <strong>interlocking bricks</strong>.
+                    We collect non-recyclable multi-layer plastics from chips and biscuit wrappers across India, compressing them under high vacuum heat into 100% waterproof, termite-proof recycled plastic boards for <strong>plastic board wholesalers</strong>, <strong>furniture makers</strong>, <strong>cooling roofs</strong>, and <strong>interlocking bricks</strong>.
                   </p>
                 </div>
 
                 <div class="mode-card">
                   <div class="mode-label">
-                    <span>Shopping Mode</span>
+                    <span>Pricing Currency: INR (₹)</span>
                     <span style="background: rgba(212,163,115,0.3); padding: 2px 6px; border-radius: 4px;">
                       ${state.isWholesale ? 'B2B Wholesale' : 'Customer Retail'}
                     </span>
@@ -1309,7 +1329,7 @@
                       class="mode-btn ${state.isWholesale ? 'active-wholesale' : 'inactive'}"
                       onclick="window.setMode(true)"
                     >
-                      🏭 Wholesale Hub
+                      🏭 Wholesalers Hub
                     </button>
                   </div>
                 </div>
@@ -1317,60 +1337,82 @@
 
               <div class="metrics-grid">
                 <div class="metric-card">
-                  <div class="metric-num">1,482,930+</div>
+                  <div class="metric-num">14,82,930+</div>
                   <div class="metric-label">Packets Diverted</div>
-                  <div class="metric-sub">From Oceans & Landfills</div>
+                  <div class="metric-sub">From Indian Oceans & Dumps</div>
                 </div>
                 <div class="metric-card">
                   <div class="metric-num">494.3 m³</div>
                   <div class="metric-label">Landfill Space Saved</div>
-                  <div class="metric-sub">Protected Soil & Ground</div>
+                  <div class="metric-sub">Protected Fertile Soil</div>
                 </div>
                 <div class="metric-card">
                   <div class="metric-num">74,146 kg</div>
                   <div class="metric-label">CO₂ Prevented</div>
-                  <div class="metric-sub">Vs Burning / Open Dumps</div>
+                  <div class="metric-sub">Vs Open Garbage Burning</div>
                 </div>
                 <div class="metric-card">
                   <div class="metric-num">100%</div>
                   <div class="metric-label">Water & Termite Proof</div>
-                  <div class="metric-sub">Zero Trees Harvested</div>
+                  <div class="metric-sub">Zero Timber Harvested</div>
                 </div>
               </div>
             </div>
           </section>
         `;
 
-        // Wholesale Contractor Banner
-        if (state.isWholesale) {
-          html += `
-            <div class="container">
-              <div class="wholesale-banner">
-                <div>
-                  <span style="background: var(--wood-600); color: #fff; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 20px; text-transform: uppercase;">
-                    🏭 B2B & Wholesale Contractor Portal
-                  </span>
-                  <h3 style="font-size: 18px; font-weight: 900; color: var(--wood-800); margin: 4px 0;">
-                    Direct Factory Bulk Pricing for Sellers, Carpenters & Civil Builders
-                  </h3>
-                  <p style="font-size: 12px; color: rgba(67, 40, 24, 0.85); max-width: 650px;">
-                    Order full pallets of RePlank boards, interlocking bricks in truckloads, or cooling roof sheets with <strong>30% to 45% wholesale margins</strong>, GST tax invoices, and carbon credit certificates.
-                  </p>
+        // --- PLASTIC BOARD WHOLESALERS PROTOTYPE SHOWCASE BANNER ---
+        html += `
+          <div class="container">
+            <div class="wholesalers-showcase">
+              <div class="wholesalers-grid">
+                <!-- User's Real Prototype Image -->
+                <div class="wholesalers-img-box">
+                  <img
+                    src="./assets/recycled-plastic-board-prototype.png"
+                    alt="Recycled Plastic Board 8ft x 4ft Prototype & Finished Bench"
+                    class="wholesalers-img"
+                    onerror="this.src='https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80'"
+                  />
                 </div>
-                <div style="display: flex; gap: 8px;">
-                  <div style="background: #fff; padding: 10px; border-radius: 12px; text-align: center; border: 1px solid #d4a373;">
-                    <span style="font-size: 11px; font-weight: 700; color: var(--wood-600); display: block;">Pallet Freight</span>
-                    <strong style="color: var(--forest-800); font-size: 13px;">Zero Surcharge</strong>
+
+                <div>
+                  <div style="display: flex; gap: 6px; align-items: center; margin-bottom: 6px;">
+                    <span style="background: var(--forest-800); color: #fff; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 20px; text-transform: uppercase;">
+                      🏭 Official Factory Prototype
+                    </span>
+                    <span style="font-size: 11px; font-weight: 800; color: var(--wood-600);">
+                      Direct Manufacturer Supply
+                    </span>
                   </div>
-                  <div style="background: #fff; padding: 10px; border-radius: 12px; text-align: center; border: 1px solid #d4a373;">
-                    <span style="font-size: 11px; font-weight: 700; color: var(--wood-600); display: block;">Dispatch</span>
-                    <strong style="color: var(--forest-800); font-size: 13px;">48h Lead Time</strong>
+
+                  <h3 style="font-size: 20px; font-weight: 900; color: var(--wood-800); line-height: 1.25; margin-bottom: 6px;">
+                    Plastic Board Wholesalers: 8 ft × 4 ft Recycled Boards (12mm & 18mm)
+                  </h3>
+
+                  <p style="font-size: 12px; color: rgba(67, 40, 24, 0.85); line-height: 1.5; margin-bottom: 12px;">
+                    Shown above: our genuine <strong>Recycled Plastic Board (Prototype: 8 ft × 4 ft, 12mm)</strong> and <strong>Prototype in Use (Outdoor Bench)</strong>. Replaces marine plywood, MDF, and wooden timber planks with a 100% waterproof, termite-proof composite made from discarded potato chips and biscuit packets.
+                  </p>
+
+                  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center;">
+                    <div style="background: #fff; padding: 8px; border-radius: 10px; border: 1px solid #d4a373;">
+                      <span style="font-size: 10px; font-weight: 700; color: var(--wood-600); display: block;">Standard Size</span>
+                      <strong style="color: var(--forest-800); font-size: 13px;">8 ft × 4 ft</strong>
+                    </div>
+                    <div style="background: #fff; padding: 8px; border-radius: 10px; border: 1px solid #d4a373;">
+                      <span style="font-size: 10px; font-weight: 700; color: var(--wood-600); display: block;">Wholesale Price</span>
+                      <strong style="color: var(--forest-800); font-size: 13px;">₹1,650 / sheet</strong>
+                    </div>
+                    <div style="background: #fff; padding: 8px; border-radius: 10px; border: 1px solid #d4a373;">
+                      <span style="font-size: 10px; font-weight: 700; color: var(--wood-600); display: block;">Bulk Margins</span>
+                      <strong style="color: var(--forest-800); font-size: 13px;">33% Off MRP</strong>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          `;
-        }
+          </div>
+        `;
 
         // Categories Strip
         html += `
@@ -1398,11 +1440,11 @@
                   ${state.activeCategory === 'all' ? 'RePlank Sustainable Products Catalog' : CATEGORIES.find(c => c.id === state.activeCategory)?.name}
                 </h2>
                 <p style="font-size: 12px; color: var(--wood-600); font-weight: 700;">
-                  Showing ${filtered.length} products made from recycled chip packets & biscuit wrappers
+                  Showing ${filtered.length} products with Indian Rupee (₹) pricing
                 </p>
               </div>
               <span style="font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 20px; background: ${state.isWholesale ? 'var(--wood-600)' : 'var(--forest-700)'}; color: #fff;">
-                ${state.isWholesale ? '🏭 Wholesale Mode' : '🌿 Retail Mode'}
+                ${state.isWholesale ? '🏭 Wholesale Mode (₹)' : '🌿 Retail Mode (₹)'}
               </span>
             </div>
 
@@ -1411,15 +1453,15 @@
                 const minLimit = state.isWholesale ? p.wholesaleMOQ : 1;
                 const qty = state.quantities[p.id] || minLimit;
                 const activePrice = state.isWholesale ? p.wholesalePrice : p.retailPrice;
-                const totalCost = (activePrice * qty).toFixed(2);
-                const totalPackets = (p.packetsSaved * qty).toLocaleString();
+                const totalCost = activePrice * qty;
+                const totalPackets = (p.packetsSaved * qty).toLocaleString('en-IN');
 
                 return `
                   <div class="product-card" onclick="window.openDetail('${p.id}')">
                     <div>
                       <div class="card-img-wrap">
                         <div class="card-badges">
-                          <span class="badge-pkt">♻️ ${p.packetsSaved.toLocaleString()} Packets</span>
+                          <span class="badge-pkt">♻️ ${p.packetsSaved.toLocaleString('en-IN')} Packets</span>
                           ${p.badge ? `<span class="badge-highlight">${p.badge}</span>` : ''}
                         </div>
                         ${state.isWholesale ? `<span class="badge-moq">MOQ: ${p.wholesaleMOQ} pcs</span>` : ''}
@@ -1428,9 +1470,9 @@
                           src="${p.imageUrl}"
                           alt="${p.name}"
                           class="card-img"
-                          onerror="this.src='https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80'"
+                          onerror="this.src='./assets/recycled-plastic-board-prototype.png'"
                         />
-                        <div class="img-inspect-hint">Click to inspect recycled composition 🔍</div>
+                        <div class="img-inspect-hint">Click to inspect composition & specs 🔍</div>
                       </div>
 
                       <div class="card-content">
@@ -1452,12 +1494,12 @@
                       <div class="price-row">
                         <div>
                           <div>
-                            <span class="price-main">$${activePrice.toFixed(2)}</span>
+                            <span class="price-main">${formatINR(activePrice)}</span>
                             <span class="price-unit">/ unit</span>
-                            ${state.isWholesale ? `<span style="font-size:11px; color:#999; text-decoration:line-through; margin-left:4px;">$${p.retailPrice.toFixed(2)}</span>` : ''}
+                            ${state.isWholesale ? `<span style="font-size:11px; color:#999; text-decoration:line-through; margin-left:4px;">${formatINR(p.retailPrice)}</span>` : ''}
                           </div>
                           <span class="price-sub ${state.isWholesale ? 'wholesale' : ''}">
-                            ${state.isWholesale ? `Wholesale Tier (Save ${Math.round(((p.retailPrice - p.wholesalePrice)/p.retailPrice)*100)}%)` : 'Retail Price • Zero-Carbon Ship'}
+                            ${state.isWholesale ? `Wholesale Tier (Save ${formatINR(p.retailPrice - p.wholesalePrice)} / unit)` : 'Retail Price • All-India EV Dispatch'}
                           </span>
                         </div>
 
@@ -1486,7 +1528,7 @@
                           onclick="window.addToCart('${p.id}', ${state.isWholesale})"
                         >
                           <span>🛒 Add to Cart</span>
-                          <span style="font-size: 11px; font-weight: normal; opacity: 0.85;">($${totalCost})</span>
+                          <span style="font-size: 11px; font-weight: normal; opacity: 0.85;">(${formatINR(totalCost)})</span>
                         </button>
                       </div>
                     </div>
@@ -1506,14 +1548,14 @@
                   <span style="font-size: 20px;">🌿</span>
                   <span style="font-size: 18px; font-weight: 900;">RePlank EcoBoards</span>
                 </div>
-                <p style="color: rgba(255,255,255,0.7); max-width: 440px; margin-top: 4px;">
-                  Converting post-consumer multi-layer chips and biscuit packaging into sustainable circular boards, roofs, furniture, and interlocking bricks.
+                <p style="color: rgba(255,255,255,0.7); max-width: 480px; margin-top: 4px;">
+                  Converting post-consumer multi-layer chips and biscuit packaging into sustainable circular boards, roofs, furniture, and interlocking bricks across India.
                 </p>
               </div>
               <div style="color: rgba(255,255,255,0.8);">
-                <p>Certified RoHS Non-Toxic • Zero Formaldehyde • 100% Circular</p>
+                <p>Commercial GST Invoices • Certified RoHS Non-Toxic • 100% Circular</p>
                 <p style="color: rgba(255,255,255,0.5); font-size: 11px; margin-top: 4px;">
-                  Built with Passion for Environmental Healing.
+                  Proudly Made in India for the Planet.
                 </p>
               </div>
             </div>
@@ -1526,8 +1568,8 @@
           const minLimit = state.isWholesale ? sp.wholesaleMOQ : 1;
           const qty = state.quantities[sp.id] || minLimit;
           const activePrice = state.isWholesale ? sp.wholesalePrice : sp.retailPrice;
-          const totalCost = (activePrice * qty).toFixed(2);
-          const pkts = (sp.packetsSaved * qty).toLocaleString();
+          const totalCost = activePrice * qty;
+          const pkts = (sp.packetsSaved * qty).toLocaleString('en-IN');
           const co2 = ((sp.co2SavedKg || 5) * qty).toFixed(1);
 
           html += `
@@ -1536,7 +1578,7 @@
                 <div class="modal-header">
                   <div style="display: flex; align-items: center; gap: 8px;">
                     <span style="background: var(--forest-800); color: #fff; font-size: 11px; font-weight: 900; padding: 4px 10px; border-radius: 20px;">
-                      ♻️ ${sp.packetsSaved.toLocaleString()} Chips Packets Inside
+                      ♻️ ${sp.packetsSaved.toLocaleString('en-IN')} Chips Packets Inside
                     </span>
                     <span style="font-size: 11px; font-weight: 800; color: var(--wood-600); text-transform: uppercase;">
                       ${sp.category}
@@ -1546,13 +1588,13 @@
                 </div>
 
                 <div class="modal-body">
-                  <div style="border-radius: 16px; overflow: hidden; height: 260px; margin-bottom: 16px;">
-                    <img src="${sp.imageUrl}" alt="${sp.name}" style="width: 100%; height: 100%; object-fit: cover;" />
+                  <div style="border-radius: 16px; overflow: hidden; height: 260px; margin-bottom: 16px; border: 1px solid #d4a373;">
+                    <img src="${sp.imageUrl}" alt="${sp.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='./assets/recycled-plastic-board-prototype.png'" />
                   </div>
 
                   <div style="margin-bottom: 14px;">
                     <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-                      <span style="color: var(--forest-700); font-size: 13px; font-weight: 900;">★ ${sp.rating} (${sp.reviewsCount} reviews)</span>
+                      <span style="color: var(--forest-700); font-size: 13px; font-weight: 900;">★ ${sp.rating} (${sp.reviewsCount} customer reviews)</span>
                       <span style="font-size: 11px; background: #e2f0d9; color: var(--forest-800); font-weight: 800; padding: 2px 8px; border-radius: 20px;">
                         RePlank Circular Certified
                       </span>
@@ -1612,9 +1654,9 @@
 
                 <div class="modal-footer">
                   <div>
-                    <span style="font-size: 22px; font-weight: 900; color: var(--forest-800);">$${activePrice.toFixed(2)}</span>
+                    <span style="font-size: 22px; font-weight: 900; color: var(--forest-800);">${formatINR(activePrice)}</span>
                     <span style="font-size: 11px; color: #6c757d;">/ unit</span>
-                    <strong style="display: block; font-size: 12px; color: var(--wood-600);">Total: $${totalCost}</strong>
+                    <strong style="display: block; font-size: 12px; color: var(--wood-600);">Total: ${formatINR(totalCost)}</strong>
                   </div>
 
                   <div style="display: flex; gap: 8px; align-items: center;">
@@ -1637,7 +1679,7 @@
           `;
         }
 
-        // --- POP-UP 2: CART MODAL ---
+        // --- POP-UP 2: CART MODAL (ALL AMOUNTS IN INR ₹) ---
         if (state.isCartOpen) {
           html += `
             <div class="modal-overlay" onclick="window.toggleCart(false)">
@@ -1661,7 +1703,7 @@
                     <div style="text-align: center; padding: 40px 10px;">
                       <div style="font-size: 48px; margin-bottom: 8px;">🌿</div>
                       <h4 style="font-size: 18px; font-weight: 900; color: var(--forest-800);">Your eco-cart is waiting!</h4>
-                      <p style="font-size: 13px; color: var(--wood-800); max-width: 320px; margin: 6px auto 16px;">
+                      <p style="font-size: 13px; color: var(--wood-800); max-width: 340px; margin: 6px auto 16px;">
                         Add recycled plastic boards, weather-proof furniture, cooling roofs, or interlocking bricks to divert snack packets.
                       </p>
                       <button class="btn btn-green" onclick="window.toggleCart(false)">Explore RePlank Catalog</button>
@@ -1673,7 +1715,7 @@
                       </div>
                       <div class="eco-report-grid">
                         <div class="eco-stat-card">
-                          <div class="eco-stat-val">${totalCartPackets.toLocaleString()}</div>
+                          <div class="eco-stat-val">${totalCartPackets.toLocaleString('en-IN')}</div>
                           <div class="eco-stat-lbl">Packets Diverted</div>
                         </div>
                         <div class="eco-stat-card">
@@ -1681,7 +1723,7 @@
                           <div class="eco-stat-lbl">CO₂e Avoided</div>
                         </div>
                         <div class="eco-stat-card">
-                          <div class="eco-stat-val">${Math.round(totalCartPackets * 0.35).toLocaleString()} L</div>
+                          <div class="eco-stat-val">${Math.round(totalCartPackets * 0.35).toLocaleString('en-IN')} L</div>
                           <div class="eco-stat-lbl">Landfill Saved</div>
                         </div>
                       </div>
@@ -1691,13 +1733,13 @@
                       ${state.cartItems.map(item => `
                         <div class="cart-item">
                           <div style="display: flex; align-items: center; gap: 10px;">
-                            <img src="${item.imageUrl}" alt="${item.name}" class="cart-item-img" />
+                            <img src="${item.imageUrl}" alt="${item.name}" class="cart-item-img" onerror="this.src='./assets/recycled-plastic-board-prototype.png'" />
                             <div>
                               <span style="font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 10px; background: ${item.isWholesale ? 'var(--wood-600)' : 'var(--forest-700)'}; color: #fff;">
                                 ${item.isWholesale ? 'Wholesale Tier' : 'Retail'}
                               </span>
                               <h4 style="font-size: 13px; font-weight: 900; color: var(--forest-800); margin: 2px 0;">${item.name}</h4>
-                              <span style="font-size: 11px; color: #6c757d;">$${item.price.toFixed(2)} / unit</span>
+                              <span style="font-size: 11px; color: #6c757d;">${formatINR(item.price)} / unit</span>
                             </div>
                           </div>
 
@@ -1707,8 +1749,8 @@
                               <span class="stepper-val">${item.quantity}</span>
                               <button class="stepper-btn" onclick="window.updateCartItemQty('${item.id}', ${item.isWholesale}, 1)">+</button>
                             </div>
-                            <strong style="font-size: 14px; color: var(--forest-800); min-width: 65px; text-align: right;">
-                              $${(item.price * item.quantity).toFixed(2)}
+                            <strong style="font-size: 14px; color: var(--forest-800); min-width: 75px; text-align: right;">
+                              ${formatINR(item.price * item.quantity)}
                             </strong>
                             <button style="background:none; border:none; cursor:pointer;" onclick="window.removeCartItem('${item.id}', ${item.isWholesale})">🗑️</button>
                           </div>
@@ -1719,21 +1761,21 @@
                     <div style="background: #ede5d6; padding: 14px; border-radius: 16px; margin-top: 14px; font-size: 12px;">
                       <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
                         <span>Subtotal:</span>
-                        <strong>$${cartSubtotal.toFixed(2)}</strong>
+                        <strong>${formatINR(cartSubtotal)}</strong>
                       </div>
                       ${ecoDiscount > 0 ? `
                         <div style="display: flex; justify-content: space-between; color: var(--forest-700); font-weight: bold; margin-bottom: 4px;">
-                          <span>🌱 Circular Earth Reward (5% discount):</span>
-                          <span>-$${ecoDiscount.toFixed(2)}</span>
+                          <span>🌱 Circular Earth Reward (5% discount on ₹5000+ orders):</span>
+                          <span>-${formatINR(ecoDiscount)}</span>
                         </div>
                       ` : ''}
                       <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-                        <span>Carbon-Neutral Electric Delivery:</span>
+                        <span>Pan-India Zero-Emission Electric Vehicle Delivery:</span>
                         <strong style="color: var(--forest-700);">FREE ⚡</strong>
                       </div>
                       <div style="border-top: 1px solid #dacbb7; padding-top: 8px; display: flex; justify-content: space-between; font-size: 15px;">
                         <strong style="color: var(--forest-800);">Total Amount:</strong>
-                        <strong style="font-size: 20px; color: var(--forest-800);">$${cartGrandTotal.toFixed(2)}</strong>
+                        <strong style="font-size: 20px; color: var(--forest-800);">${formatINR(cartGrandTotal)}</strong>
                       </div>
                     </div>
                   `}
@@ -1743,12 +1785,12 @@
                   <div class="modal-footer">
                     <div>
                       <span style="font-size: 11px; font-weight: 700; color: var(--wood-600); display: block;">Planet Impact:</span>
-                      <strong style="font-size: 13px; color: var(--forest-800);">${totalCartPackets.toLocaleString()} snack packets diverted!</strong>
+                      <strong style="font-size: 13px; color: var(--forest-800);">${totalCartPackets.toLocaleString('en-IN')} snack packets diverted!</strong>
                     </div>
 
                     <button class="btn btn-green" onclick="window.openCheckout()">
                       <span>🌱 Place RePlank Order</span>
-                      <span>($${cartGrandTotal.toFixed(2)})</span>
+                      <span>(${formatINR(cartGrandTotal)})</span>
                     </button>
                   </div>
                 ` : ''}
@@ -1766,7 +1808,7 @@
                   <div class="modal-header">
                     <div>
                       <span style="font-size: 10px; font-weight: 900; background: #ede4d4; color: var(--wood-600); padding: 2px 6px; border-radius: 4px; text-transform: uppercase;">
-                        Zero-Emission Delivery Checkout
+                        Zero-Emission EV Delivery • Pan-India
                       </span>
                       <h3 style="font-size: 18px; font-weight: 900; color: var(--forest-800); margin-top: 2px;">
                         Confirm Your RePlank Eco-Order
@@ -1780,7 +1822,7 @@
                       <span style="font-size: 24px;">🌱</span>
                       <div>
                         <strong style="font-size: 13px; color: var(--forest-800); display: block;">
-                          You are diverting ${totalCartPackets.toLocaleString()} snack packets today!
+                          You are diverting ${totalCartPackets.toLocaleString('en-IN')} snack packets today!
                         </strong>
                         <span style="color: var(--forest-700);">Zero landfill burden, zero microplastic ocean leakage.</span>
                       </div>
@@ -1788,17 +1830,17 @@
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
                       <div>
-                        <label style="display: block; font-weight: 700; margin-bottom: 3px;">Full Name</label>
+                        <label style="display: block; font-weight: 700; margin-bottom: 3px;">Full Name / Buyer Name</label>
                         <input type="text" required value="Aarav Sharma" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #dacbb7; outline: none;" />
                       </div>
                       <div>
-                        <label style="display: block; font-weight: 700; margin-bottom: 3px;">Mobile Contact</label>
+                        <label style="display: block; font-weight: 700; margin-bottom: 3px;">Mobile Contact (+91)</label>
                         <input type="text" required value="+91 98765 43210" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #dacbb7; outline: none;" />
                       </div>
                     </div>
 
                     <div style="margin-bottom: 10px;">
-                      <label style="display: block; font-weight: 700; margin-bottom: 3px;">Delivery Street Address</label>
+                      <label style="display: block; font-weight: 700; margin-bottom: 3px;">Delivery Street Address (Site / Workshop)</label>
                       <input type="text" required value="Plot 42, Eco Living Avenue, Sector 5" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #dacbb7; outline: none;" />
                     </div>
 
@@ -1808,17 +1850,24 @@
                         <input type="text" required value="Bengaluru" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #dacbb7; outline: none;" />
                       </div>
                       <div>
-                        <label style="display: block; font-weight: 700; margin-bottom: 3px;">Postal Code</label>
+                        <label style="display: block; font-weight: 700; margin-bottom: 3px;">PIN Code</label>
                         <input type="text" required value="560102" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #dacbb7; outline: none;" />
                       </div>
                     </div>
 
+                    <div style="margin-bottom: 10px;">
+                      <label style="display: block; font-weight: 700; margin-bottom: 3px; color: var(--wood-600);">
+                        Business Entity / GST Number (for Wholesale Tax Invoice)
+                      </label>
+                      <input type="text" value="Sustainable Living Constructions LLP (29AABCS1429B1Z8)" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #d4a373; outline: none;" />
+                    </div>
+
                     <div style="background: #ede5d6; padding: 10px; border-radius: 10px; margin-bottom: 16px; font-size: 11px;">
-                      <strong>Payment Method:</strong> Eco-Pay on Delivery / Corporate Green Credit (Certified carbon offset credit included).
+                      <strong>Payment Method:</strong> Eco-Pay on Delivery / Corporate Green Credit (GST Input credit invoice & physical carbon offset certificate included).
                     </div>
 
                     <button type="submit" class="btn btn-green" style="width: 100%; padding: 14px; font-size: 16px;">
-                      🎉 Confirm & Place RePlank Order ($${cartGrandTotal.toFixed(2)})
+                      🎉 Confirm & Place RePlank Order (${formatINR(cartGrandTotal)})
                     </button>
                   </form>
                 ` : `
@@ -1832,7 +1881,7 @@
                     <h2 style="font-size: 24px; font-weight: 900; color: var(--forest-800); margin: 8px 0 4px;">
                       Thank You, Eco-Warrior!
                     </h2>
-                    <p style="font-size: 13px; color: var(--wood-800); max-width: 400px; margin: 0 auto 18px;">
+                    <p style="font-size: 13px; color: var(--wood-800); max-width: 420px; margin: 0 auto 18px;">
                       Your order has been forwarded to the RePlank recycling facility. Discarded snack packets are being transformed into your living essentials right now.
                     </p>
 
@@ -1843,7 +1892,7 @@
                       </div>
                       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; text-align: center; margin-bottom: 10px;">
                         <div style="background: #fff; padding: 10px; border-radius: 10px;">
-                          <span style="font-size: 20px; font-weight: 900; color: var(--forest-800); display: block;">${totalCartPackets.toLocaleString()}</span>
+                          <span style="font-size: 20px; font-weight: 900; color: var(--forest-800); display: block;">${totalCartPackets.toLocaleString('en-IN')}</span>
                           <span style="font-size: 10px; font-weight: 700; color: var(--wood-600);">Chips & Biscuit Packets Diverted</span>
                         </div>
                         <div style="background: #fff; padding: 10px; border-radius: 10px;">
@@ -1852,7 +1901,7 @@
                         </div>
                       </div>
                       <div style="font-size: 11px; color: var(--wood-800);">
-                        <strong>Delivery:</strong> Dispatched via 100% Electric Vehicle (EV) Van Fleet
+                        <strong>Delivery:</strong> Dispatched via 100% Electric Vehicle (EV) Van Fleet across India
                       </div>
                     </div>
 

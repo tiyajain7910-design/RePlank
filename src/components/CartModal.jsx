@@ -11,8 +11,10 @@ export const CartModal = ({
 }) => {
   if (!isOpen) return null;
 
+  const formatINR = (val) => '₹' + Math.round(val).toLocaleString('en-IN');
+
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const ecoDiscount = subtotal > 100 ? subtotal * 0.05 : 0;
+  const ecoDiscount = subtotal > 5000 ? subtotal * 0.05 : 0;
   const grandTotal = subtotal - ecoDiscount;
 
   const totalPackets = cartItems.reduce((acc, item) => acc + item.packetsSaved * item.quantity, 0);
@@ -21,10 +23,8 @@ export const CartModal = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-sm overflow-y-auto animate-fadeIn">
-      {/* Click outside to close */}
       <div className="fixed inset-0" onClick={onClose}></div>
 
-      {/* Cart Container */}
       <div className="relative bg-[#faf6ef] border-2 border-[#8c6239] w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden z-10 my-auto max-h-[92vh] flex flex-col">
         {/* Header */}
         <div className="p-4 sm:p-5 bg-[#f2ebd9] border-b border-[#e6dbc9] flex items-center justify-between">
@@ -89,7 +89,7 @@ export const CartModal = ({
                 <div className="grid grid-cols-3 gap-2 text-center">
                   <div className="bg-white/85 p-2 rounded-xl">
                     <span className="block text-base sm:text-lg font-black text-[#1b4332]">
-                      {totalPackets.toLocaleString()}
+                      {totalPackets.toLocaleString('en-IN')}
                     </span>
                     <span className="text-[10px] font-bold text-[#8c6239]">Packets Diverted</span>
                   </div>
@@ -103,7 +103,7 @@ export const CartModal = ({
 
                   <div className="bg-white/85 p-2 rounded-xl">
                     <span className="block text-base sm:text-lg font-black text-[#8c6239]">
-                      {totalLandfillLiters.toLocaleString()} L
+                      {totalLandfillLiters.toLocaleString('en-IN')} L
                     </span>
                     <span className="text-[10px] font-bold text-[#8c6239]">Landfill Saved</span>
                   </div>
@@ -123,6 +123,7 @@ export const CartModal = ({
                           src={item.imageUrl}
                           alt={item.name}
                           className="w-full h-full object-cover"
+                          onError={(e) => { e.target.src = './assets/recycled-plastic-board-prototype.png'; }}
                         />
                       </div>
 
@@ -136,7 +137,7 @@ export const CartModal = ({
                             {item.isWholesale ? 'Wholesale Tier' : 'Retail'}
                           </span>
                           <span className="text-[11px] font-bold text-[#8c6239]">
-                            ♻️ {(item.packetsSaved * item.quantity).toLocaleString()} packets
+                            ♻️ {(item.packetsSaved * item.quantity).toLocaleString('en-IN')} packets
                           </span>
                         </div>
 
@@ -145,7 +146,7 @@ export const CartModal = ({
                         </h4>
 
                         <div className="text-xs text-gray-500 font-semibold mt-0.5">
-                          ${item.price.toFixed(2)} / unit
+                          {formatINR(item.price)} / unit
                         </div>
                       </div>
                     </div>
@@ -179,7 +180,7 @@ export const CartModal = ({
 
                       <div className="text-right min-w-[70px]">
                         <span className="block text-sm font-black text-[#1b4332]">
-                          ${(item.price * item.quantity).toFixed(2)}
+                          {formatINR(item.price * item.quantity)}
                         </span>
                       </div>
 
@@ -199,25 +200,25 @@ export const CartModal = ({
               <div className="bg-[#ede5d6]/70 rounded-2xl p-4 border border-[#dacbb7] space-y-2 text-xs">
                 <div className="flex justify-between text-[#432818]">
                   <span>Subtotal:</span>
-                  <span className="font-bold">${subtotal.toFixed(2)}</span>
+                  <span className="font-bold">{formatINR(subtotal)}</span>
                 </div>
 
                 {ecoDiscount > 0 && (
                   <div className="flex justify-between text-[#2d6a4f] font-bold">
-                    <span>🌱 Circular Earth Reward (5% discount):</span>
-                    <span>-${ecoDiscount.toFixed(2)}</span>
+                    <span>🌱 Circular Earth Reward (5% discount on ₹5000+ orders):</span>
+                    <span>-{formatINR(ecoDiscount)}</span>
                   </div>
                 )}
 
                 <div className="flex justify-between text-[#432818]">
-                  <span>Carbon-Neutral Electric Delivery:</span>
+                  <span>Pan-India Zero-Emission Electric Delivery:</span>
                   <span className="font-bold text-[#2d6a4f]">FREE ⚡</span>
                 </div>
 
                 <div className="pt-2 border-t border-[#dacbb7] flex justify-between items-baseline text-sm">
                   <span className="font-black text-[#1b4332]">Total Amount:</span>
                   <span className="text-xl font-black text-[#1b4332]">
-                    ${grandTotal.toFixed(2)}
+                    {formatINR(grandTotal)}
                   </span>
                 </div>
               </div>
@@ -233,7 +234,7 @@ export const CartModal = ({
                 Total Environmental Diversion:
               </span>
               <span className="text-sm font-black text-[#1b4332]">
-                {totalPackets.toLocaleString()} plastic snack wrappers diverted!
+                {totalPackets.toLocaleString('en-IN')} plastic snack wrappers diverted!
               </span>
             </div>
 
@@ -242,7 +243,7 @@ export const CartModal = ({
               className="w-full sm:w-auto py-3.5 px-8 bg-[#1b4332] hover:bg-[#2d6a4f] text-[#f7f3ea] font-black text-base rounded-2xl shadow-lg hover:shadow-xl active:scale-98 transition-all flex items-center justify-center gap-2"
             >
               <span>🌱 Place RePlank Order</span>
-              <span>(${grandTotal.toFixed(2)})</span>
+              <span>({formatINR(grandTotal)})</span>
             </button>
           </div>
         )}

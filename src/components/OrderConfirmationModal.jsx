@@ -8,20 +8,21 @@ export const OrderConfirmationModal = ({ isOpen, onClose, cartItems, onCompleteO
     name: 'Aarav Sharma',
     phone: '+91 98765 43210',
     email: 'eco.builder@greenearth.org',
-    address: 'Plot 42, Eco Living Avenue, Green Belt Sector 5',
+    address: 'Plot 42, Eco Living Avenue, Sector 5',
     city: 'Bengaluru',
     pincode: '560102',
     isCommercial: cartItems.some(i => i.isWholesale),
-    companyName: 'Sustainable Living Constructions LLP',
-    deliveryNotes: 'Please deliver to front garden unloading dock. Forklift ready.'
+    companyName: 'Sustainable Living Constructions LLP (29AABCS1429B1Z8)'
   });
+
+  const formatINR = (val) => '₹' + Math.round(val).toLocaleString('en-IN');
 
   const totalPackets = cartItems.reduce((acc, item) => acc + item.packetsSaved * item.quantity, 0);
   const totalCO2 = cartItems.reduce((acc, item) => acc + (item.co2SavedKg || 5) * item.quantity, 0).toFixed(1);
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const grandTotal = (subtotal > 100 ? subtotal * 0.95 : subtotal).toFixed(2);
+  const grandTotal = subtotal > 5000 ? subtotal * 0.95 : subtotal;
 
-  const orderId = 'REPLANK-' + Math.floor(100000 + Math.random() * 900000);
+  const orderId = 'REPLANK-IN-' + Math.floor(100000 + Math.random() * 900000);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,7 +43,7 @@ export const OrderConfirmationModal = ({ isOpen, onClose, cartItems, onCompleteO
             <div className="p-4 sm:p-5 bg-[#f2ebd9] border-b border-[#e6dbc9] flex items-center justify-between">
               <div>
                 <span className="text-[10px] font-black uppercase tracking-wider text-[#8c6239] bg-[#ede4d4] px-2 py-0.5 rounded">
-                  Zero-Emission Delivery Checkout
+                  Zero-Emission EV Delivery • Pan-India
                 </span>
                 <h2 className="text-xl font-black text-[#1b4332] mt-0.5">
                   Confirm Your RePlank Order
@@ -63,7 +64,7 @@ export const OrderConfirmationModal = ({ isOpen, onClose, cartItems, onCompleteO
                 <span className="text-2xl">🌱</span>
                 <div>
                   <span className="font-black text-[#1b4332] block">
-                    You are saving {totalPackets.toLocaleString()} snack packets today!
+                    You are saving {totalPackets.toLocaleString('en-IN')} snack packets today!
                   </span>
                   <span className="text-[11px] text-[#2d6a4f]">
                     Zero landfill burden, zero microplastic ocean leakage.
@@ -90,7 +91,7 @@ export const OrderConfirmationModal = ({ isOpen, onClose, cartItems, onCompleteO
                   </div>
 
                   <div>
-                    <label className="block font-bold text-gray-700 mb-1">Mobile Contact</label>
+                    <label className="block font-bold text-gray-700 mb-1">Mobile Contact (+91)</label>
                     <input
                       type="text"
                       required
@@ -102,7 +103,7 @@ export const OrderConfirmationModal = ({ isOpen, onClose, cartItems, onCompleteO
                 </div>
 
                 <div>
-                  <label className="block font-bold text-gray-700 mb-1">Delivery Street Address</label>
+                  <label className="block font-bold text-gray-700 mb-1">Delivery Street Address (Site / Workshop)</label>
                   <input
                     type="text"
                     required
@@ -125,7 +126,7 @@ export const OrderConfirmationModal = ({ isOpen, onClose, cartItems, onCompleteO
                   </div>
 
                   <div>
-                    <label className="block font-bold text-gray-700 mb-1">PIN / Postal Code</label>
+                    <label className="block font-bold text-gray-700 mb-1">PIN Code</label>
                     <input
                       type="text"
                       required
@@ -139,7 +140,7 @@ export const OrderConfirmationModal = ({ isOpen, onClose, cartItems, onCompleteO
                 {formData.isCommercial && (
                   <div>
                     <label className="block font-bold text-[#8c6239] mb-1">
-                      Business Entity (for B2B Wholesale GST Tax Invoice)
+                      Business Entity / GST Number (for B2B Wholesale GST Tax Invoice)
                     </label>
                     <input
                       type="text"
@@ -157,7 +158,7 @@ export const OrderConfirmationModal = ({ isOpen, onClose, cartItems, onCompleteO
                   type="submit"
                   className="w-full py-4 bg-[#1b4332] hover:bg-[#2d6a4f] text-[#f7f3ea] font-black text-base rounded-2xl shadow-lg hover:shadow-xl active:scale-98 transition-all flex items-center justify-center gap-2"
                 >
-                  <span>🎉 Confirm & Place RePlank Order (${grandTotal})</span>
+                  <span>🎉 Confirm & Place RePlank Order ({formatINR(grandTotal)})</span>
                 </button>
               </div>
             </form>
@@ -193,7 +194,7 @@ export const OrderConfirmationModal = ({ isOpen, onClose, cartItems, onCompleteO
               <div className="grid grid-cols-2 gap-3 text-center mb-3">
                 <div className="bg-white/80 p-3 rounded-xl border border-[#dacbb7]">
                   <span className="text-2xl font-black text-[#1b4332] block">
-                    {totalPackets.toLocaleString()}
+                    {totalPackets.toLocaleString('en-IN')}
                   </span>
                   <span className="text-[11px] font-bold text-[#8c6239]">
                     Chips & Biscuit Packets Diverted
@@ -205,14 +206,14 @@ export const OrderConfirmationModal = ({ isOpen, onClose, cartItems, onCompleteO
                     {totalCO2} kg
                   </span>
                   <span className="text-[11px] font-bold text-[#8c6239]">
-                    CO₂ Prevented from Sky
+                    CO₂ Prevented from Skies
                   </span>
                 </div>
               </div>
 
               <div className="text-[11px] text-[#432818] space-y-1">
                 <div><strong>Shipped to:</strong> {formData.name}, {formData.address}, {formData.city}</div>
-                <div><strong>Estimated Zero-Carbon Delivery:</strong> Within 48 hours via EV van</div>
+                <div><strong>Delivery:</strong> Dispatched via 100% Electric Vehicle (EV) Van Fleet across India</div>
               </div>
             </div>
 

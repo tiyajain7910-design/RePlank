@@ -8,9 +8,11 @@ export const ProductDetailModal = ({ product, isOpen, onClose, onAddToCart, init
   const [quantity, setQuantity] = useState(minQty);
 
   const activePrice = isWholesale ? product.wholesalePrice : product.retailPrice;
-  const itemTotal = (activePrice * quantity).toFixed(2);
-  const totalPackets = (product.packetsSaved * quantity).toLocaleString();
+  const itemTotal = activePrice * quantity;
+  const totalPackets = (product.packetsSaved * quantity).toLocaleString('en-IN');
   const totalCO2 = ((product.co2SavedKg || 5) * quantity).toFixed(1);
+
+  const formatINR = (val) => '₹' + Math.round(val).toLocaleString('en-IN');
 
   const handleToggleMode = (mode) => {
     setIsWholesale(mode);
@@ -33,7 +35,7 @@ export const ProductDetailModal = ({ product, isOpen, onClose, onAddToCart, init
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-[#e6dbc9] bg-[#f2ebd9]">
           <div className="flex items-center gap-2">
             <span className="bg-[#1b4332] text-white text-xs font-black px-3 py-1 rounded-full">
-              ♻️ {product.packetsSaved.toLocaleString()} Chips Packets Inside
+              ♻️ {product.packetsSaved.toLocaleString('en-IN')} Chips Packets Inside
             </span>
             <span className="text-xs font-bold text-[#8c6239] uppercase">
               {product.category}
@@ -57,6 +59,7 @@ export const ProductDetailModal = ({ product, isOpen, onClose, onAddToCart, init
                 src={product.imageUrl}
                 alt={product.name}
                 className="w-full h-64 sm:h-72 object-cover"
+                onError={(e) => { e.target.src = './assets/recycled-plastic-board-prototype.png'; }}
               />
             </div>
 
@@ -97,7 +100,7 @@ export const ProductDetailModal = ({ product, isOpen, onClose, onAddToCart, init
                         : 'bg-white text-[#432818] border-[#dacbb7] hover:bg-[#ede4d4]'
                     }`}
                   >
-                    🌿 Customer Retail (${product.retailPrice.toFixed(2)})
+                    🌿 Customer Retail ({formatINR(product.retailPrice)})
                   </button>
                   <button
                     type="button"
@@ -108,7 +111,7 @@ export const ProductDetailModal = ({ product, isOpen, onClose, onAddToCart, init
                         : 'bg-white text-[#432818] border-[#dacbb7] hover:bg-[#ede4d4]'
                     }`}
                   >
-                    🏭 Wholesale Tier (${product.wholesalePrice.toFixed(2)})
+                    🏭 Wholesale Tier ({formatINR(product.wholesalePrice)})
                   </button>
                 </div>
                 {isWholesale && (
@@ -200,13 +203,13 @@ export const ProductDetailModal = ({ product, isOpen, onClose, onAddToCart, init
           <div className="flex items-baseline gap-2 w-full sm:w-auto justify-between sm:justify-start">
             <div>
               <span className="text-2xl sm:text-3xl font-black text-[#1b4332]">
-                ${activePrice.toFixed(2)}
+                {formatINR(activePrice)}
               </span>
               <span className="text-xs text-gray-600 font-semibold ml-1">/ unit</span>
             </div>
             <div className="text-right sm:text-left">
               <span className="text-xs font-bold text-[#8c6239] block">
-                Total: <strong className="text-base text-[#1b4332]">${itemTotal}</strong>
+                Total: <strong className="text-base text-[#1b4332]">{formatINR(itemTotal)}</strong>
               </span>
             </div>
           </div>

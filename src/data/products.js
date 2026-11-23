@@ -1,6 +1,6 @@
 // Comprehensive dataset for RePlank EcoBoards
 // 100% post-consumer multilayer plastic packaging (chips packets, biscuit wrappers, snack foils)
-// With real authentic photography for each product
+// All pricing in Indian Rupees (INR - ₹) with Indian standard numbering format
 
 export const CATEGORIES = [
   { id: 'all', name: 'All Eco-Products', count: 11 },
@@ -16,9 +16,9 @@ export const PRODUCTS = [
     name: 'RePlank™ Standard Multi-Foil Board (18mm)',
     category: 'boards',
     tagline: 'High-density circular wood replacement made from 1,850 chips packets',
-    description: 'Our flagship 18mm high-density circular board. Manufactured by compressing shredded potato chips and biscuit packets under 200°C heat and high vacuum pressure. Retains beautiful silver-gold metallic speckles from the aluminum barrier foil. 100% waterproof, termite-proof, and can be cut, drilled, nailed, and routed just like marine plywood.',
-    retailPrice: 42.00,
-    wholesalePrice: 28.50,
+    description: 'Our flagship 18mm high-density circular board as shown in the prototype photo. Manufactured by compressing shredded potato chips and biscuit packets under 200°C heat and high vacuum pressure. Retains beautiful silver, blue, and gold metallic speckles from the aluminum barrier foil. 100% waterproof, termite-proof, and can be cut, drilled, nailed, and routed just like marine plywood.',
+    retailPrice: 2450.00,
+    wholesalePrice: 1650.00,
     wholesaleMOQ: 20,
     packetsSaved: 1850,
     co2SavedKg: 9.2,
@@ -27,10 +27,10 @@ export const PRODUCTS = [
     durability: '30+ Years Outdoor Life',
     thermalRating: 'R-1.85 Thermal Insulation',
     composition: '82% Multi-layer snack packaging (BOPP/Metalized PET/PE), 18% clean LDPE binder matrix',
-    badge: 'Best Seller',
+    badge: 'Wholesale Hero',
     rating: 4.9,
     reviewsCount: 142,
-    finish: 'Warm Wood-Beige with Recycled Foil Shimmer',
+    finish: 'Recycled Foil Speckle with Dark Dense Polymer Core',
     features: [
       'Zero wood pulp, zero trees cut down',
       'Impervious to water, mold, and termites',
@@ -38,17 +38,16 @@ export const PRODUCTS = [
       'Non-toxic VOC-free emission (RoHS compliant)',
       '100% recyclable again at end of lifecycle'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=900&q=80',
-    alt: 'Real recycled plastic composite board sheet with multi-colored speckled chips packet flecks'
+    imageUrl: './assets/recycled-plastic-board-prototype.png'
   },
   {
     id: 'board-acoustic-12mm',
     name: 'RePlank™ Decorative Partition Board (12mm)',
     category: 'boards',
     tagline: 'Lightweight sound-dampening wall panels from biscuit wrappers',
-    description: 'Precision-calibrated 12mm panels designed for aesthetic wall cladding, false ceilings, room partitions, and acoustic baffling. Made primarily from heat-sealed biscuit and cookie foil wrappers which give it an earthy biscuit-beige hue with organic flecks.',
-    retailPrice: 32.00,
-    wholesalePrice: 21.80,
+    description: 'Precision-calibrated 12mm panels (8 ft × 4 ft prototype) designed for aesthetic wall cladding, false ceilings, room partitions, and acoustic baffling. Made primarily from heat-sealed biscuit and cookie foil wrappers which give it an earthy speckled finish with metallic flecks.',
+    retailPrice: 1850.00,
+    wholesalePrice: 1250.00,
     wholesaleMOQ: 30,
     packetsSaved: 1200,
     co2SavedKg: 6.0,
@@ -60,15 +59,14 @@ export const PRODUCTS = [
     badge: 'Popular',
     rating: 4.8,
     reviewsCount: 88,
-    finish: 'Biscuit Sand Matte',
+    finish: 'Biscuit Sand & Foil Speckle',
     features: [
       'Reduces room echo and ambient noise',
       'Ultra-lightweight for easy ceiling installation',
       'Naturally antimicrobial and moisture resistant',
       'Warm earthy tone requires no toxic paint'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=900&q=80',
-    alt: 'Real architectural textured wall board partition in warm wooden beige tone'
+    imageUrl: './assets/recycled-plastic-board-prototype.png'
   },
   {
     id: 'board-armor-25mm',
@@ -76,8 +74,8 @@ export const PRODUCTS = [
     category: 'boards',
     tagline: 'Industrial load-bearing decking & flooring board',
     description: 'Extra-thick 25mm compressed plastic composite engineered for heavy structural loads. Ideal for outdoor patio decking, mezzanine flooring, industrial shelving, and shipping container linings. Replaces hardwood timber planks with twice the weather resilience.',
-    retailPrice: 64.00,
-    wholesalePrice: 44.00,
+    retailPrice: 3600.00,
+    wholesalePrice: 2450.00,
     wholesaleMOQ: 15,
     packetsSaved: 2900,
     co2SavedKg: 14.5,
@@ -96,8 +94,35 @@ export const PRODUCTS = [
       'Never rots or splinters even submerged in water',
       'UV-stabilized for harsh desert and tropical sun'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80',
-    alt: 'Real structural composite decking board planks'
+    imageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: 'furn-garden-bench',
+    name: 'RePlank™ Prototype All-Weather Garden Bench',
+    category: 'furniture',
+    tagline: 'Zero-maintenance bench made directly from RePlank 8x4 recycled boards',
+    description: 'As demonstrated in our prototype in use! Crafted entirely from 12mm and 18mm RePlank plastic boards with rust-proof stainless steel bolts. Designed for balconies, gardens, civic parks, and patio lounges. Will never decay, fade, splinter, or rust regardless of heavy monsoon rains, coastal moisture, or scorching sun.',
+    retailPrice: 8500.00,
+    wholesalePrice: 5800.00,
+    wholesaleMOQ: 5,
+    packetsSaved: 4500,
+    co2SavedKg: 22.5,
+    dimensions: '58" L × 18" D × 18" H (147cm × 46cm × 46cm)',
+    weight: '26 kg',
+    durability: '30+ Years Outdoor Weatherproof',
+    thermalRating: 'UV-Resistant Grade 8',
+    composition: '100% Recycled multilayer chips packaging boards with anti-rust steel fasteners',
+    badge: 'Prototype Verified',
+    rating: 4.9,
+    reviewsCount: 110,
+    finish: 'Speckled Recycled Foil Multi-Color Luster',
+    features: [
+      'Leaves zero carbon footprint in your garden',
+      'No annual painting or waterproofing chemicals needed',
+      'Ergonomically contoured seat & sturdy board legs',
+      'Can be anchored to pavement, terrace or lawn'
+    ],
+    imageUrl: './assets/recycled-plastic-board-prototype.png'
   },
   {
     id: 'furn-dining-table',
@@ -105,8 +130,8 @@ export const PRODUCTS = [
     category: 'furniture',
     tagline: 'Artisan handcrafted dining centerpiece from 6,800 snack packets',
     description: 'A showstopping dining table that sparks environmental conversations. The tabletop is crafted from dense RePlank boards displaying iridescent hints of recycled snack wrappers, polished to a silky wooden-beige luster. Paired with a sturdy reclaimed timber frame.',
-    retailPrice: 340.00,
-    wholesalePrice: 225.00,
+    retailPrice: 18500.00,
+    wholesalePrice: 12800.00,
     wholesaleMOQ: 5,
     packetsSaved: 6800,
     co2SavedKg: 34.0,
@@ -125,37 +150,7 @@ export const PRODUCTS = [
       'Each tabletop features a unique swirl pattern',
       'Includes numbered plaque certifying packets diverted'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?auto=format&fit=crop&w=900&q=80',
-    alt: 'Real wooden beige handcrafted dining table made with recycled materials'
-  },
-  {
-    id: 'furn-garden-bench',
-    name: 'RePlank™ Verdant All-Weather Park & Garden Bench',
-    category: 'furniture',
-    tagline: 'Zero-maintenance outdoor bench made from 4,500 snack packets',
-    description: 'Designed for balconies, gardens, civic parks, and patio lounges. Will never decay, fade, splinter, or rust regardless of heavy monsoon rains, salty coastal breeze, or scorching sun. Solid, comfortable, and deeply grounded in circularity.',
-    retailPrice: 185.00,
-    wholesalePrice: 124.00,
-    wholesaleMOQ: 5,
-    packetsSaved: 4500,
-    co2SavedKg: 22.5,
-    dimensions: '58" L × 24" D × 34" H (147cm × 61cm × 86cm)',
-    weight: '32 kg',
-    durability: '30+ Years Outdoor Weatherproof',
-    thermalRating: 'UV-Resistant Grade 8',
-    composition: '100% Recycled multilayer chips packaging boards with anti-rust steel fasteners',
-    badge: 'Weatherproof',
-    rating: 4.9,
-    reviewsCount: 110,
-    finish: 'Forest Green & Wooden Sand Accent',
-    features: [
-      'Leaves zero carbon footprint in your garden',
-      'No annual painting or waterproofing chemicals needed',
-      'Ergonomically contoured seat & backrest',
-      'Can be anchored to pavement or grass'
-    ],
-    imageUrl: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=900&q=80',
-    alt: 'Real all-weather outdoor garden park bench made from recycled plastic composite slats'
+    imageUrl: 'https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 'furn-lounge-chair',
@@ -163,8 +158,8 @@ export const PRODUCTS = [
     category: 'furniture',
     tagline: 'Modern Scandinavian curves from 3,200 potato chip bags',
     description: 'Sculptural elegance meets environmental justice. Made by precision thermo-forming our 12mm RePlank boards into flowing organic curves. Hugs your posture comfortably and adds warm, sustainable earthy charm to any modern living room or reading nook.',
-    retailPrice: 155.00,
-    wholesalePrice: 105.00,
+    retailPrice: 6900.00,
+    wholesalePrice: 4800.00,
     wholesaleMOQ: 8,
     packetsSaved: 3200,
     co2SavedKg: 16.0,
@@ -183,8 +178,7 @@ export const PRODUCTS = [
       'Scratch-resistant feet pads protect delicate floors',
       'Diverts 3,200 plastic wrappers from burning furnaces'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1580481077194-c2c62c2f7b8e?auto=format&fit=crop&w=900&q=80',
-    alt: 'Real modern curved armchair in warm wooden beige tone'
+    imageUrl: 'https://images.unsplash.com/photo-1580481077194-c2c62c2f7b8e?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 'furn-desk',
@@ -192,8 +186,8 @@ export const PRODUCTS = [
     category: 'furniture',
     tagline: 'Indestructible home office desk with built-in cable conduits',
     description: 'An eco-friendly study desk built to withstand generations of busy student and remote work life. Features a water-tight recycled plastic board top that shrugs off pen marks, coffee rings, and laptop heat with ease.',
-    retailPrice: 220.00,
-    wholesalePrice: 148.00,
+    retailPrice: 11200.00,
+    wholesalePrice: 7800.00,
     wholesaleMOQ: 6,
     packetsSaved: 5100,
     co2SavedKg: 25.5,
@@ -212,8 +206,7 @@ export const PRODUCTS = [
       'Zero toxic off-gassing into your bedroom air',
       'Tool-free assembly in under 8 minutes'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=900&q=80',
-    alt: 'Real modern wooden beige home office study desk'
+    imageUrl: 'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 'roof-sheet-corrugated',
@@ -221,8 +214,8 @@ export const PRODUCTS = [
     category: 'roofing',
     tagline: 'Drops indoor room temp by 4°C to 6°C using reflective snack foils',
     description: 'Revolutionary alternative to sizzling tin, GI, and hazardous asbestos sheets! By utilizing the natural high-reflectance aluminium barrier layer of potato chip packets on the upper face, this sheet reflects up to 88% of solar infrared rays. Inside temperatures remain noticeably cooler, reducing air conditioning electricity bills. Also dampens torrential rain noise by up to 60%.',
-    retailPrice: 26.50,
-    wholesalePrice: 17.80,
+    retailPrice: 980.00,
+    wholesalePrice: 680.00,
     wholesaleMOQ: 40,
     packetsSaved: 2100,
     co2SavedKg: 10.5,
@@ -241,8 +234,7 @@ export const PRODUCTS = [
       'Substantially cuts down loud drumming noise of heavy monsoons',
       'Eligible for green building carbon credits'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1629853381676-5991807d4b49?auto=format&fit=crop&w=900&q=80',
-    alt: 'Real corrugated cooling roof installation on modern eco building'
+    imageUrl: 'https://images.unsplash.com/photo-1629853381676-5991807d4b49?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 'roof-tile-ridge',
@@ -250,8 +242,8 @@ export const PRODUCTS = [
     category: 'roofing',
     tagline: 'Weatherproof roof peak seal from 850 biscuit wrappers',
     description: 'Molded interlocking ridge caps that seal roof peaks against cyclonic winds, driving rain, and bird nesting. Seamlessly matches ThermoReflect roof sheets for a unified, climate-adaptive roof installation.',
-    retailPrice: 14.00,
-    wholesalePrice: 8.90,
+    retailPrice: 450.00,
+    wholesalePrice: 290.00,
     wholesaleMOQ: 50,
     packetsSaved: 850,
     co2SavedKg: 4.25,
@@ -270,8 +262,7 @@ export const PRODUCTS = [
       'Pre-drilled fastening guides for quick installation',
       'Won\'t crack during freeze-thaw cycles'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1584463699047-66c303f295b9?auto=format&fit=crop&w=900&q=80',
-    alt: 'Real architectural interlocking roof tiles and ridge capping'
+    imageUrl: 'https://images.unsplash.com/photo-1584463699047-66c303f295b9?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 'brick-interlocking-block',
@@ -279,8 +270,8 @@ export const PRODUCTS = [
     category: 'bricks',
     tagline: 'Mortar-less Lego-style building brick made from 350 chip packets',
     description: 'A structural breakthrough in affordable sustainable building. These interlocking bricks fit together like building blocks with internal alignment lugs, eliminating the need for wet cement mortar. 3x faster construction speed, ultra-high compressive strength, zero water absorption (no dampness or efflorescence ever).',
-    retailPrice: 2.50,
-    wholesalePrice: 1.48,
+    retailPrice: 45.00,
+    wholesalePrice: 28.00,
     wholesaleMOQ: 250,
     packetsSaved: 350,
     co2SavedKg: 1.75,
@@ -299,8 +290,7 @@ export const PRODUCTS = [
       'Disassemble and reassemble structures anywhere (circular economy)',
       'Hollow internal chambers allow hidden electrical conduit runs'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1590069261209-f8e9b8642343?auto=format&fit=crop&w=900&q=80',
-    alt: 'Real interlocking masonry construction blocks in building site'
+    imageUrl: 'https://images.unsplash.com/photo-1590069261209-f8e9b8642343?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 'brick-permeable-paver',
@@ -308,8 +298,8 @@ export const PRODUCTS = [
     category: 'bricks',
     tagline: 'Permeable storm-water paver for green driveways & garden paths',
     description: 'Honeycomb interlocking pavers that reinforce turf and gravel while enabling 100% natural rainwater infiltration into groundwater aquifers. Built from heavy-duty recycled snack foils to support emergency vehicles and everyday car parking without rutting.',
-    retailPrice: 3.80,
-    wholesalePrice: 2.25,
+    retailPrice: 85.00,
+    wholesalePrice: 55.00,
     wholesaleMOQ: 150,
     packetsSaved: 480,
     co2SavedKg: 2.4,
@@ -328,8 +318,7 @@ export const PRODUCTS = [
       'Reduces urban heat-island effect compared to black asphalt',
       'Simple interlocking side-clips for rapid installation'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1558904541-efa8c4a08931?auto=format&fit=crop&w=900&q=80',
-    alt: 'Real permeable interlocking grass grid pavers on driveway'
+    imageUrl: 'https://images.unsplash.com/photo-1558904541-efa8c4a08931?auto=format&fit=crop&w=800&q=80'
   }
 ];
 
