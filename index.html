@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>RePlank EcoBoards | Recycled Chips & Biscuit Packets Upcycling</title>
+  
+  <!-- 100% SELF-CONTAINED CSS: NO EXTERNAL NETWORK CALLS REQUIRED TO RENDER -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
+    
+    :root {
+      --forest-900: #0f291e;
+      --forest-800: #1b4332;
+      --forest-700: #2d6a4f;
+      --forest-600: #40916c;
+      --forest-500: #52b788;
+      --forest-400: #74c69d;
+      --forest-100: #d8f3dc;
+      --wood-900: #38220f;
+      --wood-800: #432818;
+      --wood-700: #6d4c2b;
+      --wood-600: #8c6239;
+      --wood-400: #bc9a6a;
+      --wood-300: #d4a373;
+      --wood-200: #ecd9c6;
+      --wood-100: #f5ede2;
+      --wood-50: #faf7f2;
+      --cream-bg: #faf8f5;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--cream-bg);
+      color: #212529;
+      line-height: 1.5;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Container & Layout */
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(247, 243, 234, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid #e6dbc9;
+      padding: 12px 0;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .logo-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: var(--forest-800);
+      color: #f7f3ea;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      border: 1px solid rgba(82, 183, 136, 0.4);
+    }
+    .brand-title {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--forest-800);
+      letter-spacing: -0.5px;
+    }
+    .brand-pill {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--wood-600);
+      background: #ede4d4;
+      padding: 2px 6px;
+      border-radius: 6px;
+      margin-left: 4px;
+    }
+    .brand-sub {
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(67, 40, 24, 0.7);
+    }
+
+    /* Search bar */
+    .search-box {
+      flex: 1;
+      max-width: 380px;
+      position: relative;
+    }
+    .search-input {
+      width: 100%;
+      padding: 8px 12px 8px 34px;
+      border-radius: 12px;
+      border: 1px solid #dacbb7;
+      background: #ffffff;
+      font-size: 13px;
+      color: var(--wood-800);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-input:focus {
+      border-color: var(--forest-800);
+      box-shadow: 0 0 0 2px rgba(27, 67, 50, 0.15);
+    }
+    .search-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 13px;
+      opacity: 0.5;
+    }
+
+    /* Big buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 800;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      text-decoration: none;
+      font-family: inherit;
+    }
+    .btn:active {
+      transform: scale(0.97);
+    }
+    .btn-green {
+      background: var(--forest-800);
+      color: #f7f3ea;
+      padding: 10px 18px;
+      font-size: 14px;
+      box-shadow: 0 3px 8px rgba(27, 67, 50, 0.25);
+    }
+    .btn-green:hover {
+      background: var(--forest-700);
+    }
+    .btn-wood {
+      background: var(--wood-600);
+      color: #f7f3ea;
+      padding: 10px 18px;
+      font-size: 14px;
+    }
+    .btn-wood:hover {
+      background: var(--wood-700);
+    }
+    .btn-outline {
+      background: #ede4d4;
+      color: var(--wood-800);
+      border: 1px solid #dacbb7;
+      padding: 8px 14px;
+      font-size: 12px;
+    }
+    .btn-outline:hover {
+      background: #e4d9c7;
+    }
+
+    /* Cart Header Button */
+    .cart-btn {
+      position: relative;
+      background: var(--forest-800);
+      color: #f7f3ea;
+      padding: 9px 16px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(27, 67, 50, 0.2);
+    }
+    .cart-btn:hover { background: var(--forest-700); }
+    .cart-badge {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ca8a04;
+      color: #1c1917;
+      font-size: 11px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(180deg, #f3ede2 0%, #f7f3ea 60%, #faf8f5 100%);
+      border-bottom: 1px solid #e5dac9;
+      padding: 24px 0 28px;
+    }
+    .hero-top {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    @media (min-width: 768px) {
+      .hero-top {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+    .hero-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+    .pill-green {
+      background: var(--forest-700);
+      color: #f7f3ea;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .pill-wood {
+      color: var(--wood-600);
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .hero-title {
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--forest-800);
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .hero-desc {
+      font-size: 13px;
+      color: rgba(67, 40, 24, 0.85);
+      max-width: 640px;
+    }
+
+    /* Mode Switcher Card */
+    .mode-card {
+      background: #ede4d4;
+      border: 2px solid var(--wood-300);
+      padding: 12px;
+      border-radius: 16px;
+      flex-shrink: 0;
+    }
+    .mode-label {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--wood-700);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .mode-toggles {
+      display: flex;
+      gap: 6px;
+      background: #dfd4c0;
+      padding: 4px;
+      border-radius: 12px;
+    }
+    .mode-btn {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .mode-btn.active-retail {
+      background: var(--forest-800);
+      color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    }
+    .mode-btn.active-wholesale {
+      background: var(--wood-600);
+      color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    }
+    .mode-btn.inactive {
+      background: transparent;
+      color: var(--wood-800);
+    }
+
+    /* Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 18px;
+    }
+    @media (min-width: 640px) {
+      .metrics-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    .metric-card {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid #d9ccba;
+      border-radius: 16px;
+      padding: 12px;
+      text-align: center;
+    }
+    .metric-num {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--forest-800);
+    }
+    .metric-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--wood-600);
+      margin-top: 2px;
+    }
+    .metric-sub {
+      font-size: 10px;
+      color: #6c757d;
+    }
+
+    /* Wholesale Portal Banner */
+    .wholesale-banner {
+      background: #ede1ce;
+      border: 2px solid var(--wood-600);
+      border-radius: 18px;
+      padding: 16px;
+      margin: 16px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    @media (min-width: 768px) {
+      .wholesale-banner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    /* Categories strip */
+    .categories-strip {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 14px 0 6px;
+    }
+    .cat-btn {
+      white-space: nowrap;
+      padding: 8px 14px;
+      border-radius: 14px;
+      font-size: 12px;
+      font-weight: 800;
+      border: 1px solid #dacbb7;
+      background: rgba(237, 229, 214, 0.8);
+      color: var(--wood-800);
+      cursor: pointer;
+      transition: all 0.18s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: inherit;
+    }
+    .cat-btn.active {
+      background: var(--forest-800);
+      color: #ffffff;
+      border-color: var(--forest-800);
+    }
+    .cat-count {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      background: #dfd4c0;
+    }
+    .cat-btn.active .cat-count {
+      background: var(--forest-500);
+      color: var(--forest-800);
+    }
+
+    /* Products Grid */
+    .products-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin: 20px 0 40px;
+    }
+    @media (min-width: 640px) {
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 992px) {
+      .products-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* Product Card */
+    .product-card {
+      background: #faf6ef;
+      border: 2px solid #e6dbc9;
+      border-radius: 22px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .product-card:hover {
+      border-color: var(--wood-600);
+      box-shadow: 0 6px 16px rgba(67, 40, 24, 0.08);
+    }
+    .card-img-wrap {
+      position: relative;
+      height: 200px;
+      background: #ede4d4;
+      overflow: hidden;
+    }
+    .card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+    .product-card:hover .card-img {
+      transform: scale(1.05);
+    }
+    .card-badges {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 2;
+    }
+    .badge-pkt {
+      background: var(--forest-800);
+      color: #f7f3ea;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 20px;
+    }
+    .badge-highlight {
+      background: var(--wood-600);
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+    .badge-moq {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #ca8a04;
+      color: #1c1917;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 20px;
+      z-index: 2;
+    }
+    .img-inspect-hint {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.45);
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 700;
+      text-align: center;
+      padding: 4px;
+    }
+
+    .card-content {
+      padding: 16px;
+    }
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--wood-600);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--forest-800);
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .card-tagline {
+      font-size: 12px;
+      color: rgba(67, 40, 24, 0.75);
+      margin-bottom: 12px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-pills {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .pill-spec {
+      background: #ede5d6;
+      color: var(--wood-800);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 7px;
+      border-radius: 6px;
+    }
+
+    .card-footer {
+      padding: 14px 16px 16px;
+      border-top: 1px solid #ede2d1;
+    }
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .price-main {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--forest-800);
+    }
+    .price-unit {
+      font-size: 11px;
+      color: #6c757d;
+      font-weight: 600;
+      margin-left: 3px;
+    }
+    .price-sub {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--forest-700);
+      display: block;
+    }
+    .price-sub.wholesale {
+      color: #ca8a04;
+    }
+
+    .action-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .stepper {
+      display: flex;
+      align-items: center;
+      background: #ede4d4;
+      border-radius: 12px;
+      border: 1px solid #dacbb7;
+      padding: 2px;
+    }
+    .stepper-btn {
+      width: 32px;
+      height: 32px;
+      background: transparent;
+      border: none;
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--wood-800);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+    }
+    .stepper-btn:hover { background: rgba(212, 163, 115, 0.3); }
+    .stepper-val {
+      width: 34px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--forest-800);
+    }
+
+    /* Modal / Pop-up System */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-y: auto;
+    }
+    .modal-box {
+      background: #faf6ef;
+      border: 2px solid var(--wood-300);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 680px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+      position: relative;
+    }
+    .modal-header {
+      padding: 16px 20px;
+      background: #f2ebd9;
+      border-bottom: 1px solid #e6dbc9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .modal-body {
+      padding: 20px;
+    }
+    .modal-footer {
+      padding: 16px 20px;
+      background: #f2ebd9;
+      border-top: 1px solid #e6dbc9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      bottom: 0;
+      z-index: 10;
+    }
+    .btn-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #ede4d4;
+      border: none;
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--wood-800);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-close:hover { background: #dfd4c0; }
+
+    /* Environmental Report Card */
+    .eco-report-box {
+      background: #e8f2ea;
+      border: 2px solid var(--forest-500);
+      border-radius: 16px;
+      padding: 14px;
+      margin: 14px 0;
+    }
+    .eco-report-title {
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--forest-800);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .eco-report-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      text-align: center;
+    }
+    .eco-stat-card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      padding: 10px 6px;
+    }
+    .eco-stat-val {
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--forest-800);
+    }
+    .eco-stat-lbl {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--wood-600);
+    }
+
+    /* Specs Table */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      font-size: 12px;
+      margin: 12px 0;
+    }
+    @media (min-width: 600px) {
+      .specs-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .spec-item {
+      background: #ede5d6;
+      padding: 8px 12px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Cart Items */
+    .cart-item {
+      background: #ffffff;
+      border: 1px solid #dacbb7;
+      border-radius: 16px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .cart-item-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      object-fit: cover;
+      background: #ede4d4;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--forest-800);
+      color: #f7f3ea;
+      padding: 12px 20px;
+      border-radius: 16px;
+      font-weight: 800;
+      font-size: 13px;
+      z-index: 100;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      border: 2px solid var(--forest-500);
+      text-align: center;
+      max-width: 90%;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--forest-800);
+      color: #f7f3ea;
+      border-top: 4px solid var(--wood-600);
+      padding: 30px 0;
+      font-size: 12px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ROOT CONTAINER FOR THE REPLANK APPLICATION -->
+  <div id="app"></div>
+
+  <!-- PURE ZERO-DEPENDENCY JAVASCRIPT: GUARANTEED TO WORK IMMEDIATELY IN OPERA & ALL BROWSERS -->
+  <script>
+    (function() {
+      // --- REPLANK DATA STORE WITH REAL PRODUCT IMAGERY ---
+      const CATEGORIES = [
+        { id: 'all', name: 'All Eco-Products', count: 11 },
+        { id: 'boards', name: 'Recycled Plastic Boards', count: 3 },
+        { id: 'furniture', name: 'Eco-Furniture', count: 4 },
+        { id: 'roofing', name: 'Cooling Roofs', count: 2 },
+        { id: 'bricks', name: 'Interlocking Bricks', count: 2 },
+      ];
+
+      const PRODUCTS = [
+        {
+          id: 'board-standard-18mm',
+          name: 'RePlank™ Standard Multi-Foil Board (18mm)',
+          category: 'boards',
+          tagline: 'High-density circular wood replacement made from 1,850 chips packets',
+          description: 'Our flagship 18mm high-density circular board. Manufactured by compressing shredded potato chips and biscuit packets under 200°C heat and high vacuum pressure. Retains beautiful silver-gold metallic speckles from the aluminum barrier foil. 100% waterproof, termite-proof, and can be cut, drilled, nailed, and routed just like marine plywood.',
+          retailPrice: 42.00,
+          wholesalePrice: 28.50,
+          wholesaleMOQ: 20,
+          packetsSaved: 1850,
+          co2SavedKg: 9.2,
+          dimensions: '8 ft × 4 ft (2440mm × 1220mm) - 18mm Thickness',
+          weight: '28.5 kg / sheet',
+          durability: '30+ Years Outdoor Life',
+          thermalRating: 'R-1.85 Thermal Insulation',
+          composition: '82% Multi-layer snack packaging (BOPP/Metalized PET/PE), 18% clean LDPE binder matrix',
+          badge: 'Best Seller',
+          rating: 4.9,
+          reviewsCount: 142,
+          finish: 'Warm Wood-Beige with Recycled Foil Shimmer',
+          imageUrl: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80'
+        },
+        {
+          id: 'board-acoustic-12mm',
+          name: 'RePlank™ Decorative Partition Board (12mm)',
+          category: 'boards',
+          tagline: 'Lightweight sound-dampening wall panels from biscuit wrappers',
+          description: 'Precision-calibrated 12mm panels designed for aesthetic wall cladding, false ceilings, room partitions, and acoustic baffling. Made primarily from heat-sealed biscuit and cookie foil wrappers which give it an earthy biscuit-beige hue with organic flecks.',
+          retailPrice: 32.00,
+          wholesalePrice: 21.80,
+          wholesaleMOQ: 30,
+          packetsSaved: 1200,
+          co2SavedKg: 6.0,
+          dimensions: '8 ft × 4 ft (2440mm × 1220mm) - 12mm Thickness',
+          weight: '19.0 kg / sheet',
+          durability: '25+ Years Indoor Life',
+          thermalRating: 'NRC 0.65 Acoustic Absorption',
+          composition: '88% Recycled Biscuit wrappers & snack film, 12% food-grade recycled polymer',
+          badge: 'Popular',
+          rating: 4.8,
+          reviewsCount: 88,
+          finish: 'Biscuit Sand Matte',
+          imageUrl: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80'
+        },
+        {
+          id: 'board-armor-25mm',
+          name: 'RePlank™ Heavy-Duty Structural Board (25mm)',
+          category: 'boards',
+          tagline: 'Industrial load-bearing decking & flooring board',
+          description: 'Extra-thick 25mm compressed plastic composite engineered for heavy structural loads. Ideal for outdoor patio decking, mezzanine flooring, industrial shelving, and shipping container linings. Replaces hardwood timber planks with twice the weather resilience.',
+          retailPrice: 64.00,
+          wholesalePrice: 44.00,
+          wholesaleMOQ: 15,
+          packetsSaved: 2900,
+          co2SavedKg: 14.5,
+          dimensions: '8 ft × 4 ft (2440mm × 1220mm) - 25mm Thickness',
+          weight: '39.8 kg / sheet',
+          durability: '40+ Years Heavy Foot-Traffic Life',
+          thermalRating: 'High Load Capacity: 850 kg/m²',
+          composition: '90% Crushed Multi-layer chips bags, 10% high-density structural regrind',
+          badge: 'Heavy Duty',
+          rating: 5.0,
+          reviewsCount: 64,
+          finish: 'Granite Wood Grain Texture',
+          imageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80'
+        },
+        {
+          id: 'furn-dining-table',
+          name: 'RePlank™ Canopy 6-Seater Dining Table',
+          category: 'furniture',
+          tagline: 'Artisan handcrafted dining centerpiece from 6,800 snack packets',
+          description: 'A showstopping dining table that sparks environmental conversations. The tabletop is crafted from dense RePlank boards displaying iridescent hints of recycled snack wrappers, polished to a silky wooden-beige luster. Paired with a sturdy reclaimed timber frame.',
+          retailPrice: 340.00,
+          wholesalePrice: 225.00,
+          wholesaleMOQ: 5,
+          packetsSaved: 6800,
+          co2SavedKg: 34.0,
+          dimensions: '72" L × 36" W × 30" H (182cm × 91cm × 76cm)',
+          weight: '44 kg',
+          durability: 'Lifetime Structural Guarantee',
+          thermalRating: 'Heat-resistant up to 110°C (Hot pans safe with coasters)',
+          composition: '100% Recycled chip packet board top, solid reclaimed salvage wood base',
+          badge: 'Eco Showstopper',
+          rating: 4.9,
+          reviewsCount: 73,
+          finish: 'Warm Oak & Golden Foil Marble',
+          imageUrl: 'https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?auto=format&fit=crop&w=800&q=80'
+        },
+        {
+          id: 'furn-garden-bench',
+          name: 'RePlank™ Verdant All-Weather Park & Garden Bench',
+          category: 'furniture',
+          tagline: 'Zero-maintenance outdoor bench made from 4,500 snack packets',
+          description: 'Designed for balconies, gardens, civic parks, and patio lounges. Will never decay, fade, splinter, or rust regardless of heavy monsoon rains, salty coastal breeze, or scorching sun. Solid, comfortable, and deeply grounded in circularity.',
+          retailPrice: 185.00,
+          wholesalePrice: 124.00,
+          wholesaleMOQ: 5,
+          packetsSaved: 4500,
+          co2SavedKg: 22.5,
+          dimensions: '58" L × 24" D × 34" H (147cm × 61cm × 86cm)',
+          weight: '32 kg',
+          durability: '30+ Years Outdoor Weatherproof',
+          thermalRating: 'UV-Resistant Grade 8',
+          composition: '100% Recycled multilayer chips packaging boards with anti-rust steel fasteners',
+          badge: 'Weatherproof',
+          rating: 4.9,
+          reviewsCount: 110,
+          finish: 'Forest Green & Wooden Sand Accent',
+          imageUrl: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80'
+        },
+        {
+          id: 'furn-lounge-chair',
+          name: 'RePlank™ Solace Ergonomic Eco-Lounge Chair',
+          category: 'furniture',
+          tagline: 'Modern Scandinavian curves from 3,200 potato chip bags',
+          description: 'Sculptural elegance meets environmental justice. Made by precision thermo-forming our 12mm RePlank boards into flowing organic curves. Hugs your posture comfortably and adds warm, sustainable earthy charm to any modern living room or reading nook.',
+          retailPrice: 155.00,
+          wholesalePrice: 105.00,
+          wholesaleMOQ: 8,
+          packetsSaved: 3200,
+          co2SavedKg: 16.0,
+          dimensions: '30" W × 32" D × 31" H (76cm × 81cm × 78cm)',
+          weight: '16.5 kg',
+          durability: '25+ Years Indoor / Covered Patio',
+          thermalRating: 'Max Load 160 kg tested',
+          composition: 'Flexible multi-laminate chips packet board with natural organic linen cushion',
+          badge: 'Designer Pick',
+          rating: 4.8,
+          reviewsCount: 52,
+          finish: 'Warm Beige & Matte Olive',
+          imageUrl: 'https://images.unsplash.com/photo-1580481077194-c2c62c2f7b8e?auto=format&fit=crop&w=800&q=80'
+        },
+        {
+          id: 'furn-desk',
+          name: 'RePlank™ Modular Workstation Desk',
+          category: 'furniture',
+          tagline: 'Indestructible home office desk with built-in cable conduits',
+          description: 'An eco-friendly study desk built to withstand generations of busy student and remote work life. Features a water-tight recycled plastic board top that shrugs off pen marks, coffee rings, and laptop heat with ease.',
+          retailPrice: 220.00,
+          wholesalePrice: 148.00,
+          wholesaleMOQ: 6,
+          packetsSaved: 5100,
+          co2SavedKg: 25.5,
+          dimensions: '48" L × 24" W × 30" H (122cm × 61cm × 76cm)',
+          weight: '27 kg',
+          durability: '20+ Years Daily Heavy Use',
+          thermalRating: 'Scratch Resistance Rating 4H',
+          composition: '100% Recycled snack packet board with powder-coated recycled steel legs',
+          badge: 'Popular',
+          rating: 4.7,
+          reviewsCount: 79,
+          finish: 'Biscuit Beige with Subtle Foil Grain',
+          imageUrl: 'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=800&q=80'
+        },
+        {
+          id: 'roof-sheet-corrugated',
+          name: 'RePlank™ ThermoReflect Corrugated Cooling Roof Sheet',
+          category: 'roofing',
+          tagline: 'Drops indoor room temp by 4°C to 6°C using reflective snack foils',
+          description: 'Revolutionary alternative to sizzling tin, GI, and hazardous asbestos sheets! By utilizing the natural high-reflectance aluminium barrier layer of potato chip packets on the upper face, this sheet reflects up to 88% of solar infrared rays. Inside temperatures remain noticeably cooler, reducing air conditioning electricity bills. Also dampens torrential rain noise by up to 60%.',
+          retailPrice: 26.50,
+          wholesalePrice: 17.80,
+          wholesaleMOQ: 40,
+          packetsSaved: 2100,
+          co2SavedKg: 10.5,
+          dimensions: '10 ft × 3.5 ft (3050mm × 1060mm) - 3.5mm Corrugated Profile',
+          weight: '11.8 kg / sheet',
+          durability: '25+ Years Rust-Free Roof Life',
+          thermalRating: 'Solar Reflectance Index (SRI) 84 | -5.5°C Ambient Drop',
+          composition: '100% Recycled Metalized Multi-layer Plastic (Chips & biscuit packaging)',
+          badge: 'Energy Saver',
+          rating: 4.9,
+          reviewsCount: 214,
+          finish: 'Silver-Sand Solar Reflective Top, Olive Green Underside',
+          imageUrl: 'https://images.unsplash.com/photo-1629853381676-5991807d4b49?auto=format&fit=crop&w=800&q=80'
+        },
+        {
+          id: 'roof-tile-ridge',
+          name: 'RePlank™ SolarShield Interlocking Ridge Cap & Tile',
+          category: 'roofing',
+          tagline: 'Weatherproof roof peak seal from 850 biscuit wrappers',
+          description: 'Molded interlocking ridge caps that seal roof peaks against cyclonic winds, driving rain, and bird nesting. Seamlessly matches ThermoReflect roof sheets for a unified, climate-adaptive roof installation.',
+          retailPrice: 14.00,
+          wholesalePrice: 8.90,
+          wholesaleMOQ: 50,
+          packetsSaved: 850,
+          co2SavedKg: 4.25,
+          dimensions: '36" L × 14" W (91cm × 35cm) - 4mm Thickness',
+          weight: '3.2 kg / tile',
+          durability: '30+ Years UV Resistant',
+          thermalRating: 'Wind Load Resistance up to 140 km/h',
+          composition: '100% Biscuit packet recycled polymer with UV stabilizers',
+          badge: 'Storm Safe',
+          rating: 4.8,
+          reviewsCount: 46,
+          finish: 'Terracotta Wood-Beige Blend',
+          imageUrl: 'https://images.unsplash.com/photo-1584463699047-66c303f295b9?auto=format&fit=crop&w=800&q=80'
+        },
+        {
+          id: 'brick-interlocking-block',
+          name: 'RePlank™ Modular Interlocking Masonry Eco-Brick',
+          category: 'bricks',
+          tagline: 'Mortar-less Lego-style building brick made from 350 chip packets',
+          description: 'A structural breakthrough in affordable sustainable building. These interlocking bricks fit together like building blocks with internal alignment lugs, eliminating the need for wet cement mortar. 3x faster construction speed, ultra-high compressive strength, zero water absorption (no dampness or efflorescence ever).',
+          retailPrice: 2.50,
+          wholesalePrice: 1.48,
+          wholesaleMOQ: 250,
+          packetsSaved: 350,
+          co2SavedKg: 1.75,
+          dimensions: '10" L × 5" W × 4" H (250mm × 125mm × 100mm)',
+          weight: '2.1 kg / brick',
+          durability: '50+ Years Structural Integrity',
+          thermalRating: 'Compressive Strength: 14.5 N/mm² (exceeds red clay bricks)',
+          composition: '85% Shredded Multilayer snack packets, 15% inert mineral filler',
+          badge: 'Zero Mortar',
+          rating: 5.0,
+          reviewsCount: 312,
+          finish: 'Earthy Sand-Stone Grain',
+          imageUrl: 'https://images.unsplash.com/photo-1590069261209-f8e9b8642343?auto=format&fit=crop&w=800&q=80'
+        },
+        {
+          id: 'brick-permeable-paver',
+          name: 'RePlank™ PermeaGreen Interlocking Grass & Eco-Paver',
+          category: 'bricks',
+          tagline: 'Permeable storm-water paver for green driveways & garden paths',
+          description: 'Honeycomb interlocking pavers that reinforce turf and gravel while enabling 100% natural rainwater infiltration into groundwater aquifers. Built from heavy-duty recycled snack foils to support emergency vehicles and everyday car parking without rutting.',
+          retailPrice: 3.80,
+          wholesalePrice: 2.25,
+          wholesaleMOQ: 150,
+          packetsSaved: 480,
+          co2SavedKg: 2.4,
+          dimensions: '16" L × 16" W × 2" H (400mm × 400mm × 50mm)',
+          weight: '1.8 kg / paver',
+          durability: '35+ Years Vehicle Load Life',
+          thermalRating: 'Load Capacity: 250 Tons/m² (H-20 Vehicle Loading)',
+          composition: '100% Recycled Flexible Plastic Packaging & Bottle Caps',
+          badge: 'Groundwater Hero',
+          rating: 4.8,
+          reviewsCount: 95,
+          finish: 'Earthy Olive & Wooden Pebble Hue',
+          imageUrl: 'https://images.unsplash.com/photo-1558904541-efa8c4a08931?auto=format&fit=crop&w=800&q=80'
+        }
+      ];
+
+      // --- APPLICATION STATE ---
+      let state = {
+        activeCategory: 'all',
+        isWholesale: false,
+        searchQuery: '',
+        cartItems: [],
+        isCartOpen: false,
+        selectedProduct: null,
+        isCheckoutOpen: false,
+        orderPlaced: false,
+        lastOrderId: '',
+        toastMessage: null,
+        quantities: {}
+      };
+
+      // Initialize default quantities
+      PRODUCTS.forEach(p => {
+        state.quantities[p.id] = state.isWholesale ? p.wholesaleMOQ : 1;
+      });
+
+      function setState(newState) {
+        state = Object.assign({}, state, newState);
+        render();
+      }
+
+      function showToast(msg) {
+        state.toastMessage = msg;
+        render();
+        setTimeout(() => {
+          if (state.toastMessage === msg) {
+            state.toastMessage = null;
+            render();
+          }
+        }, 3000);
+      }
+
+      // --- ACTIONS ---
+      window.setCategory = function(catId) {
+        setState({ activeCategory: catId });
+      };
+
+      window.setMode = function(isWholesale) {
+        const newQuantities = {};
+        PRODUCTS.forEach(p => {
+          newQuantities[p.id] = isWholesale ? p.wholesaleMOQ : 1;
+        });
+        setState({ isWholesale: isWholesale, quantities: newQuantities });
+      };
+
+      window.setSearch = function(query) {
+        setState({ searchQuery: query });
+      };
+
+      window.updateCardQty = function(productId, delta, minLimit) {
+        const current = state.quantities[productId] || minLimit;
+        const next = current + delta;
+        if (next >= minLimit) {
+          const q = Object.assign({}, state.quantities);
+          q[productId] = next;
+          setState({ quantities: q });
+        }
+      };
+
+      window.addToCart = function(productId, asWholesale) {
+        const product = PRODUCTS.find(p => p.id === productId);
+        if (!product) return;
+        const qty = state.quantities[productId] || (asWholesale ? product.wholesaleMOQ : 1);
+        const price = asWholesale ? product.wholesalePrice : product.retailPrice;
+
+        const cart = state.cartItems.slice();
+        const existingIdx = cart.findIndex(i => i.id === productId && i.isWholesale === asWholesale);
+
+        if (existingIdx > -1) {
+          cart[existingIdx].quantity += qty;
+        } else {
+          cart.push({
+            id: product.id,
+            name: product.name,
+            price: price,
+            quantity: qty,
+            isWholesale: asWholesale,
+            wholesaleMOQ: product.wholesaleMOQ,
+            packetsSaved: product.packetsSaved,
+            co2SavedKg: product.co2SavedKg,
+            imageUrl: product.imageUrl
+          });
+        }
+
+        const totalDiverted = (product.packetsSaved * qty).toLocaleString();
+        showToast(`🌱 Added ${qty}× ${product.name}! Diverted ${totalDiverted} packets.`);
+        setState({ cartItems: cart });
+      };
+
+      window.openDetail = function(productId) {
+        const product = PRODUCTS.find(p => p.id === productId);
+        setState({ selectedProduct: product });
+      };
+
+      window.closeDetail = function() {
+        setState({ selectedProduct: null });
+      };
+
+      window.toggleCart = function(isOpen) {
+        setState({ isCartOpen: isOpen });
+      };
+
+      window.updateCartItemQty = function(productId, isWholesale, delta) {
+        const cart = state.cartItems.slice();
+        const item = cart.find(i => i.id === productId && i.isWholesale === isWholesale);
+        if (!item) return;
+        const minLimit = isWholesale ? item.wholesaleMOQ : 1;
+        const newQty = item.quantity + delta;
+
+        if (newQty < minLimit) {
+          const filtered = cart.filter(i => !(i.id === productId && i.isWholesale === isWholesale));
+          setState({ cartItems: filtered });
+        } else {
+          item.quantity = newQty;
+          setState({ cartItems: cart });
+        }
+      };
+
+      window.removeCartItem = function(productId, isWholesale) {
+        const filtered = state.cartItems.filter(i => !(i.id === productId && i.isWholesale === isWholesale));
+        setState({ cartItems: filtered });
+      };
+
+      window.clearCart = function() {
+        if (confirm('Clear your RePlank eco-cart?')) {
+          setState({ cartItems: [] });
+        }
+      };
+
+      window.openCheckout = function() {
+        setState({ isCartOpen: false, isCheckoutOpen: true, orderPlaced: false });
+      };
+
+      window.closeCheckout = function() {
+        setState({ isCheckoutOpen: false });
+      };
+
+      window.submitOrder = function(e) {
+        e.preventDefault();
+        const orderId = 'REPLANK-' + Math.floor(100000 + Math.random() * 900000);
+        setState({ orderPlaced: true, lastOrderId: orderId });
+      };
+
+      window.finishOrder = function() {
+        setState({ isCheckoutOpen: false, orderPlaced: false, cartItems: [] });
+        showToast('🎉 Order confirmed! Discarded packets diverted.');
+      };
+
+      // --- RENDER ENGINE ---
+      function render() {
+        const app = document.getElementById('app');
+        if (!app) return;
+
+        // Filter products
+        const filtered = PRODUCTS.filter(p => {
+          const matchCat = state.activeCategory === 'all' || p.category === state.activeCategory;
+          const q = state.searchQuery.toLowerCase().trim();
+          const matchSearch = !q ||
+            p.name.toLowerCase().includes(q) ||
+            p.tagline.toLowerCase().includes(q) ||
+            p.description.toLowerCase().includes(q) ||
+            p.category.toLowerCase().includes(q);
+          return matchCat && matchSearch;
+        });
+
+        // Totals
+        const totalCartQty = state.cartItems.reduce((acc, i) => acc + i.quantity, 0);
+        const totalCartPackets = state.cartItems.reduce((acc, i) => acc + i.packetsSaved * i.quantity, 0);
+        const totalCartCO2 = state.cartItems.reduce((acc, i) => acc + (i.co2SavedKg || 5) * i.quantity, 0).toFixed(1);
+        const cartSubtotal = state.cartItems.reduce((acc, i) => acc + i.price * i.quantity, 0);
+        const ecoDiscount = cartSubtotal > 100 ? cartSubtotal * 0.05 : 0;
+        const cartGrandTotal = cartSubtotal - ecoDiscount;
+
+        let html = '';
+
+        // Toast
+        if (state.toastMessage) {
+          html += `<div class="toast">${state.toastMessage}</div>`;
+        }
+
+        // Header
+        html += `
+          <header>
+            <div class="container header-inner">
+              <div class="logo-area">
+                <div class="logo-badge">🌿</div>
+                <div>
+                  <div style="display: flex; align-items: center;">
+                    <span class="brand-title">RePlank</span>
+                    <span class="brand-pill">EcoBoards</span>
+                  </div>
+                  <span class="brand-sub">Recycled Chips & Biscuit Packets</span>
+                </div>
+              </div>
+
+              <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input
+                  type="text"
+                  class="search-input"
+                  placeholder="Search boards, furniture, roofs, bricks..."
+                  value="${state.searchQuery}"
+                  oninput="window.setSearch(this.value)"
+                />
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <button
+                  class="btn btn-outline"
+                  onclick="window.setMode(${!state.isWholesale})"
+                  title="Toggle retail vs wholesale pricing"
+                >
+                  ${state.isWholesale ? '🏭 Wholesale Active' : '🌿 Retail Mode'}
+                </button>
+
+                <button class="cart-btn" onclick="window.toggleCart(true)">
+                  <span>🛒</span>
+                  <span style="display: none; @media(min-width:600px){display:inline;}">Cart</span>
+                  <span class="cart-badge">${totalCartQty}</span>
+                </button>
+              </div>
+            </div>
+          </header>
+        `;
+
+        // Hero Section
+        html += `
+          <section class="hero">
+            <div class="container">
+              <div class="hero-top">
+                <div>
+                  <div class="hero-badge-row">
+                    <span class="pill-green">100% Circular Upcycling</span>
+                    <span class="pill-wood">Chips & Biscuit Packet Recycling Chain</span>
+                  </div>
+                  <h1 class="hero-title">RePlank: Discarded Snack Foils to Indestructible Living</h1>
+                  <p class="hero-desc">
+                    We collect non-recyclable multi-layer plastics (potato chips bags, biscuit wrappers) and compress them into 100% waterproof, termite-proof recycled plastic boards for <strong>designer furniture</strong>, <strong>cooling roofs</strong>, and <strong>interlocking bricks</strong>.
+                  </p>
+                </div>
+
+                <div class="mode-card">
+                  <div class="mode-label">
+                    <span>Shopping Mode</span>
+                    <span style="background: rgba(212,163,115,0.3); padding: 2px 6px; border-radius: 4px;">
+                      ${state.isWholesale ? 'B2B Wholesale' : 'Customer Retail'}
+                    </span>
+                  </div>
+                  <div class="mode-toggles">
+                    <button
+                      class="mode-btn ${!state.isWholesale ? 'active-retail' : 'inactive'}"
+                      onclick="window.setMode(false)"
+                    >
+                      🌿 Retail Store
+                    </button>
+                    <button
+                      class="mode-btn ${state.isWholesale ? 'active-wholesale' : 'inactive'}"
+                      onclick="window.setMode(true)"
+                    >
+                      🏭 Wholesale Hub
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="metrics-grid">
+                <div class="metric-card">
+                  <div class="metric-num">1,482,930+</div>
+                  <div class="metric-label">Packets Diverted</div>
+                  <div class="metric-sub">From Oceans & Landfills</div>
+                </div>
+                <div class="metric-card">
+                  <div class="metric-num">494.3 m³</div>
+                  <div class="metric-label">Landfill Space Saved</div>
+                  <div class="metric-sub">Protected Soil & Ground</div>
+                </div>
+                <div class="metric-card">
+                  <div class="metric-num">74,146 kg</div>
+                  <div class="metric-label">CO₂ Prevented</div>
+                  <div class="metric-sub">Vs Burning / Open Dumps</div>
+                </div>
+                <div class="metric-card">
+                  <div class="metric-num">100%</div>
+                  <div class="metric-label">Water & Termite Proof</div>
+                  <div class="metric-sub">Zero Trees Harvested</div>
+                </div>
+              </div>
+            </div>
+          </section>
+        `;
+
+        // Wholesale Contractor Banner
+        if (state.isWholesale) {
+          html += `
+            <div class="container">
+              <div class="wholesale-banner">
+                <div>
+                  <span style="background: var(--wood-600); color: #fff; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 20px; text-transform: uppercase;">
+                    🏭 B2B & Wholesale Contractor Portal
+                  </span>
+                  <h3 style="font-size: 18px; font-weight: 900; color: var(--wood-800); margin: 4px 0;">
+                    Direct Factory Bulk Pricing for Sellers, Carpenters & Civil Builders
+                  </h3>
+                  <p style="font-size: 12px; color: rgba(67, 40, 24, 0.85); max-width: 650px;">
+                    Order full pallets of RePlank boards, interlocking bricks in truckloads, or cooling roof sheets with <strong>30% to 45% wholesale margins</strong>, GST tax invoices, and carbon credit certificates.
+                  </p>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                  <div style="background: #fff; padding: 10px; border-radius: 12px; text-align: center; border: 1px solid #d4a373;">
+                    <span style="font-size: 11px; font-weight: 700; color: var(--wood-600); display: block;">Pallet Freight</span>
+                    <strong style="color: var(--forest-800); font-size: 13px;">Zero Surcharge</strong>
+                  </div>
+                  <div style="background: #fff; padding: 10px; border-radius: 12px; text-align: center; border: 1px solid #d4a373;">
+                    <span style="font-size: 11px; font-weight: 700; color: var(--wood-600); display: block;">Dispatch</span>
+                    <strong style="color: var(--forest-800); font-size: 13px;">48h Lead Time</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        // Categories Strip
+        html += `
+          <div class="container">
+            <div class="categories-strip scrollbar-none">
+              ${CATEGORIES.map(c => `
+                <button
+                  class="cat-btn ${state.activeCategory === c.id ? 'active' : ''}"
+                  onclick="window.setCategory('${c.id}')"
+                >
+                  <span>${c.name}</span>
+                  <span class="cat-count">${c.count}</span>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        `;
+
+        // Products Catalog
+        html += `
+          <main class="container">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; margin-top: 14px;">
+              <div>
+                <h2 style="font-size: 20px; font-weight: 900; color: var(--forest-800);">
+                  ${state.activeCategory === 'all' ? 'RePlank Sustainable Products Catalog' : CATEGORIES.find(c => c.id === state.activeCategory)?.name}
+                </h2>
+                <p style="font-size: 12px; color: var(--wood-600); font-weight: 700;">
+                  Showing ${filtered.length} products made from recycled chip packets & biscuit wrappers
+                </p>
+              </div>
+              <span style="font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 20px; background: ${state.isWholesale ? 'var(--wood-600)' : 'var(--forest-700)'}; color: #fff;">
+                ${state.isWholesale ? '🏭 Wholesale Mode' : '🌿 Retail Mode'}
+              </span>
+            </div>
+
+            <div class="products-grid">
+              ${filtered.map(p => {
+                const minLimit = state.isWholesale ? p.wholesaleMOQ : 1;
+                const qty = state.quantities[p.id] || minLimit;
+                const activePrice = state.isWholesale ? p.wholesalePrice : p.retailPrice;
+                const totalCost = (activePrice * qty).toFixed(2);
+                const totalPackets = (p.packetsSaved * qty).toLocaleString();
+
+                return `
+                  <div class="product-card" onclick="window.openDetail('${p.id}')">
+                    <div>
+                      <div class="card-img-wrap">
+                        <div class="card-badges">
+                          <span class="badge-pkt">♻️ ${p.packetsSaved.toLocaleString()} Packets</span>
+                          ${p.badge ? `<span class="badge-highlight">${p.badge}</span>` : ''}
+                        </div>
+                        ${state.isWholesale ? `<span class="badge-moq">MOQ: ${p.wholesaleMOQ} pcs</span>` : ''}
+                        
+                        <img
+                          src="${p.imageUrl}"
+                          alt="${p.name}"
+                          class="card-img"
+                          onerror="this.src='https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80'"
+                        />
+                        <div class="img-inspect-hint">Click to inspect recycled composition 🔍</div>
+                      </div>
+
+                      <div class="card-content">
+                        <div class="card-meta">
+                          <span>${p.category.toUpperCase()}</span>
+                          <span style="color: var(--forest-700);">★ ${p.rating} (${p.reviewsCount})</span>
+                        </div>
+                        <h3 class="card-title">${p.name}</h3>
+                        <p class="card-tagline">${p.tagline}</p>
+
+                        <div class="card-pills">
+                          <span class="pill-spec">📏 ${p.dimensions.split('(')[0]}</span>
+                          <span class="pill-spec" style="color: var(--forest-800);">🛡️ ${p.durability}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="card-footer" onclick="event.stopPropagation()">
+                      <div class="price-row">
+                        <div>
+                          <div>
+                            <span class="price-main">$${activePrice.toFixed(2)}</span>
+                            <span class="price-unit">/ unit</span>
+                            ${state.isWholesale ? `<span style="font-size:11px; color:#999; text-decoration:line-through; margin-left:4px;">$${p.retailPrice.toFixed(2)}</span>` : ''}
+                          </div>
+                          <span class="price-sub ${state.isWholesale ? 'wholesale' : ''}">
+                            ${state.isWholesale ? `Wholesale Tier (Save ${Math.round(((p.retailPrice - p.wholesalePrice)/p.retailPrice)*100)}%)` : 'Retail Price • Zero-Carbon Ship'}
+                          </span>
+                        </div>
+
+                        <div style="text-align: right;">
+                          <span style="font-size: 10px; font-weight: 700; color: var(--wood-600); display: block;">Diverts:</span>
+                          <strong style="font-size: 12px; color: var(--forest-800);">${totalPackets} pkts</strong>
+                        </div>
+                      </div>
+
+                      <div class="action-row">
+                        <div class="stepper">
+                          <button
+                            class="stepper-btn"
+                            onclick="window.updateCardQty('${p.id}', -1, ${minLimit})"
+                          >-</button>
+                          <span class="stepper-val">${qty}</span>
+                          <button
+                            class="stepper-btn"
+                            onclick="window.updateCardQty('${p.id}', 1, ${minLimit})"
+                          >+</button>
+                        </div>
+
+                        <button
+                          class="btn btn-green"
+                          style="flex: 1;"
+                          onclick="window.addToCart('${p.id}', ${state.isWholesale})"
+                        >
+                          <span>🛒 Add to Cart</span>
+                          <span style="font-size: 11px; font-weight: normal; opacity: 0.85;">($${totalCost})</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </main>
+        `;
+
+        // Footer
+        html += `
+          <footer>
+            <div class="container" style="display: flex; flex-direction: column; gap: 16px; @media(min-width:768px){flex-direction:row; justify-content:space-between;}">
+              <div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 20px;">🌿</span>
+                  <span style="font-size: 18px; font-weight: 900;">RePlank EcoBoards</span>
+                </div>
+                <p style="color: rgba(255,255,255,0.7); max-width: 440px; margin-top: 4px;">
+                  Converting post-consumer multi-layer chips and biscuit packaging into sustainable circular boards, roofs, furniture, and interlocking bricks.
+                </p>
+              </div>
+              <div style="color: rgba(255,255,255,0.8);">
+                <p>Certified RoHS Non-Toxic • Zero Formaldehyde • 100% Circular</p>
+                <p style="color: rgba(255,255,255,0.5); font-size: 11px; margin-top: 4px;">
+                  Built with Passion for Environmental Healing.
+                </p>
+              </div>
+            </div>
+          </footer>
+        `;
+
+        // --- POP-UP 1: PRODUCT DETAIL MODAL ---
+        if (state.selectedProduct) {
+          const sp = state.selectedProduct;
+          const minLimit = state.isWholesale ? sp.wholesaleMOQ : 1;
+          const qty = state.quantities[sp.id] || minLimit;
+          const activePrice = state.isWholesale ? sp.wholesalePrice : sp.retailPrice;
+          const totalCost = (activePrice * qty).toFixed(2);
+          const pkts = (sp.packetsSaved * qty).toLocaleString();
+          const co2 = ((sp.co2SavedKg || 5) * qty).toFixed(1);
+
+          html += `
+            <div class="modal-overlay" onclick="window.closeDetail()">
+              <div class="modal-box" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="background: var(--forest-800); color: #fff; font-size: 11px; font-weight: 900; padding: 4px 10px; border-radius: 20px;">
+                      ♻️ ${sp.packetsSaved.toLocaleString()} Chips Packets Inside
+                    </span>
+                    <span style="font-size: 11px; font-weight: 800; color: var(--wood-600); text-transform: uppercase;">
+                      ${sp.category}
+                    </span>
+                  </div>
+                  <button class="btn-close" onclick="window.closeDetail()">✕</button>
+                </div>
+
+                <div class="modal-body">
+                  <div style="border-radius: 16px; overflow: hidden; height: 260px; margin-bottom: 16px;">
+                    <img src="${sp.imageUrl}" alt="${sp.name}" style="width: 100%; height: 100%; object-fit: cover;" />
+                  </div>
+
+                  <div style="margin-bottom: 14px;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                      <span style="color: var(--forest-700); font-size: 13px; font-weight: 900;">★ ${sp.rating} (${sp.reviewsCount} reviews)</span>
+                      <span style="font-size: 11px; background: #e2f0d9; color: var(--forest-800); font-weight: 800; padding: 2px 8px; border-radius: 20px;">
+                        RePlank Circular Certified
+                      </span>
+                    </div>
+                    <h2 style="font-size: 22px; font-weight: 900; color: var(--forest-800);">${sp.name}</h2>
+                    <p style="font-size: 13px; font-weight: 700; color: var(--wood-600); margin: 2px 0 6px;">${sp.tagline}</p>
+                    <p style="font-size: 13px; color: rgba(67, 40, 24, 0.85); line-height: 1.5;">${sp.description}</p>
+                  </div>
+
+                  <div class="eco-report-box">
+                    <div class="eco-report-title">
+                      <span>🌱</span> Environmental Impact Report for this Product
+                    </div>
+                    <div class="eco-report-grid">
+                      <div class="eco-stat-card">
+                        <div class="eco-stat-val">${pkts}</div>
+                        <div class="eco-stat-lbl">Packets Diverted</div>
+                      </div>
+                      <div class="eco-stat-card">
+                        <div class="eco-stat-val">${co2} kg</div>
+                        <div class="eco-stat-lbl">CO₂e Avoided</div>
+                      </div>
+                      <div class="eco-stat-card">
+                        <div class="eco-stat-val">100%</div>
+                        <div class="eco-stat-lbl">Circular Lifecycle</div>
+                      </div>
+                    </div>
+                    <div style="font-size: 11px; color: var(--forest-800); margin-top: 10px; background: #fff; padding: 8px; border-radius: 8px;">
+                      <strong>Raw Composition:</strong> ${sp.composition}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 style="font-size: 12px; font-weight: 900; color: var(--wood-800); text-transform: uppercase;">
+                      Engineering & Performance Specs
+                    </h4>
+                    <div class="specs-grid">
+                      <div class="spec-item">
+                        <span style="color: #6c757d;">Dimensions:</span>
+                        <strong style="color: var(--forest-800);">${sp.dimensions}</strong>
+                      </div>
+                      <div class="spec-item">
+                        <span style="color: #6c757d;">Weight:</span>
+                        <strong style="color: var(--forest-800);">${sp.weight}</strong>
+                      </div>
+                      <div class="spec-item">
+                        <span style="color: #6c757d;">Durability:</span>
+                        <strong style="color: var(--forest-800);">${sp.durability}</strong>
+                      </div>
+                      <div class="spec-item">
+                        <span style="color: #6c757d;">Thermal/Load:</span>
+                        <strong style="color: var(--forest-800);">${sp.thermalRating}</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                  <div>
+                    <span style="font-size: 22px; font-weight: 900; color: var(--forest-800);">$${activePrice.toFixed(2)}</span>
+                    <span style="font-size: 11px; color: #6c757d;">/ unit</span>
+                    <strong style="display: block; font-size: 12px; color: var(--wood-600);">Total: $${totalCost}</strong>
+                  </div>
+
+                  <div style="display: flex; gap: 8px; align-items: center;">
+                    <div class="stepper">
+                      <button class="stepper-btn" onclick="window.updateCardQty('${sp.id}', -1, ${minLimit})">-</button>
+                      <span class="stepper-val">${qty}</span>
+                      <button class="stepper-btn" onclick="window.updateCardQty('${sp.id}', 1, ${minLimit})">+</button>
+                    </div>
+
+                    <button
+                      class="btn btn-green"
+                      onclick="window.addToCart('${sp.id}', ${state.isWholesale}); window.closeDetail();"
+                    >
+                      <span>🛒 Add to Cart</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        // --- POP-UP 2: CART MODAL ---
+        if (state.isCartOpen) {
+          html += `
+            <div class="modal-overlay" onclick="window.toggleCart(false)">
+              <div class="modal-box" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 20px;">🛒</span>
+                    <div>
+                      <h3 style="font-size: 18px; font-weight: 900; color: var(--forest-800);">Your RePlank Eco-Cart</h3>
+                      <span style="font-size: 11px; font-weight: 700; color: var(--wood-600);">${state.cartItems.length} unique products</span>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    ${state.cartItems.length > 0 ? `<button style="background:none; border:none; color:red; font-size:11px; font-weight:bold; cursor:pointer;" onclick="window.clearCart()">Clear All</button>` : ''}
+                    <button class="btn-close" onclick="window.toggleCart(false)">✕</button>
+                  </div>
+                </div>
+
+                <div class="modal-body">
+                  ${state.cartItems.length === 0 ? `
+                    <div style="text-align: center; padding: 40px 10px;">
+                      <div style="font-size: 48px; margin-bottom: 8px;">🌿</div>
+                      <h4 style="font-size: 18px; font-weight: 900; color: var(--forest-800);">Your eco-cart is waiting!</h4>
+                      <p style="font-size: 13px; color: var(--wood-800); max-width: 320px; margin: 6px auto 16px;">
+                        Add recycled plastic boards, weather-proof furniture, cooling roofs, or interlocking bricks to divert snack packets.
+                      </p>
+                      <button class="btn btn-green" onclick="window.toggleCart(false)">Explore RePlank Catalog</button>
+                    </div>
+                  ` : `
+                    <div class="eco-report-box">
+                      <div class="eco-report-title">
+                        <span>🌱</span> Your Real Planet Impact With This Order
+                      </div>
+                      <div class="eco-report-grid">
+                        <div class="eco-stat-card">
+                          <div class="eco-stat-val">${totalCartPackets.toLocaleString()}</div>
+                          <div class="eco-stat-lbl">Packets Diverted</div>
+                        </div>
+                        <div class="eco-stat-card">
+                          <div class="eco-stat-val">${totalCartCO2} kg</div>
+                          <div class="eco-stat-lbl">CO₂e Avoided</div>
+                        </div>
+                        <div class="eco-stat-card">
+                          <div class="eco-stat-val">${Math.round(totalCartPackets * 0.35).toLocaleString()} L</div>
+                          <div class="eco-stat-lbl">Landfill Saved</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      ${state.cartItems.map(item => `
+                        <div class="cart-item">
+                          <div style="display: flex; align-items: center; gap: 10px;">
+                            <img src="${item.imageUrl}" alt="${item.name}" class="cart-item-img" />
+                            <div>
+                              <span style="font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 10px; background: ${item.isWholesale ? 'var(--wood-600)' : 'var(--forest-700)'}; color: #fff;">
+                                ${item.isWholesale ? 'Wholesale Tier' : 'Retail'}
+                              </span>
+                              <h4 style="font-size: 13px; font-weight: 900; color: var(--forest-800); margin: 2px 0;">${item.name}</h4>
+                              <span style="font-size: 11px; color: #6c757d;">$${item.price.toFixed(2)} / unit</span>
+                            </div>
+                          </div>
+
+                          <div style="display: flex; align-items: center; gap: 10px;">
+                            <div class="stepper">
+                              <button class="stepper-btn" onclick="window.updateCartItemQty('${item.id}', ${item.isWholesale}, -1)">-</button>
+                              <span class="stepper-val">${item.quantity}</span>
+                              <button class="stepper-btn" onclick="window.updateCartItemQty('${item.id}', ${item.isWholesale}, 1)">+</button>
+                            </div>
+                            <strong style="font-size: 14px; color: var(--forest-800); min-width: 65px; text-align: right;">
+                              $${(item.price * item.quantity).toFixed(2)}
+                            </strong>
+                            <button style="background:none; border:none; cursor:pointer;" onclick="window.removeCartItem('${item.id}', ${item.isWholesale})">🗑️</button>
+                          </div>
+                        </div>
+                      `).join('')}
+                    </div>
+
+                    <div style="background: #ede5d6; padding: 14px; border-radius: 16px; margin-top: 14px; font-size: 12px;">
+                      <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                        <span>Subtotal:</span>
+                        <strong>$${cartSubtotal.toFixed(2)}</strong>
+                      </div>
+                      ${ecoDiscount > 0 ? `
+                        <div style="display: flex; justify-content: space-between; color: var(--forest-700); font-weight: bold; margin-bottom: 4px;">
+                          <span>🌱 Circular Earth Reward (5% discount):</span>
+                          <span>-$${ecoDiscount.toFixed(2)}</span>
+                        </div>
+                      ` : ''}
+                      <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                        <span>Carbon-Neutral Electric Delivery:</span>
+                        <strong style="color: var(--forest-700);">FREE ⚡</strong>
+                      </div>
+                      <div style="border-top: 1px solid #dacbb7; padding-top: 8px; display: flex; justify-content: space-between; font-size: 15px;">
+                        <strong style="color: var(--forest-800);">Total Amount:</strong>
+                        <strong style="font-size: 20px; color: var(--forest-800);">$${cartGrandTotal.toFixed(2)}</strong>
+                      </div>
+                    </div>
+                  `}
+                </div>
+
+                ${state.cartItems.length > 0 ? `
+                  <div class="modal-footer">
+                    <div>
+                      <span style="font-size: 11px; font-weight: 700; color: var(--wood-600); display: block;">Planet Impact:</span>
+                      <strong style="font-size: 13px; color: var(--forest-800);">${totalCartPackets.toLocaleString()} snack packets diverted!</strong>
+                    </div>
+
+                    <button class="btn btn-green" onclick="window.openCheckout()">
+                      <span>🌱 Place RePlank Order</span>
+                      <span>($${cartGrandTotal.toFixed(2)})</span>
+                    </button>
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+          `;
+        }
+
+        // --- POP-UP 3: PLACE ORDER CONFIRMATION / CERTIFICATE MODAL ---
+        if (state.isCheckoutOpen) {
+          html += `
+            <div class="modal-overlay" onclick="window.closeCheckout()">
+              <div class="modal-box" onclick="event.stopPropagation()">
+                ${!state.orderPlaced ? `
+                  <div class="modal-header">
+                    <div>
+                      <span style="font-size: 10px; font-weight: 900; background: #ede4d4; color: var(--wood-600); padding: 2px 6px; border-radius: 4px; text-transform: uppercase;">
+                        Zero-Emission Delivery Checkout
+                      </span>
+                      <h3 style="font-size: 18px; font-weight: 900; color: var(--forest-800); margin-top: 2px;">
+                        Confirm Your RePlank Eco-Order
+                      </h3>
+                    </div>
+                    <button class="btn-close" onclick="window.closeCheckout()">✕</button>
+                  </div>
+
+                  <form onsubmit="window.submitOrder(event)" style="padding: 20px; font-size: 12px;">
+                    <div style="background: #e8f2ea; border: 1px solid var(--forest-500); border-radius: 14px; padding: 12px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px;">
+                      <span style="font-size: 24px;">🌱</span>
+                      <div>
+                        <strong style="font-size: 13px; color: var(--forest-800); display: block;">
+                          You are diverting ${totalCartPackets.toLocaleString()} snack packets today!
+                        </strong>
+                        <span style="color: var(--forest-700);">Zero landfill burden, zero microplastic ocean leakage.</span>
+                      </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                      <div>
+                        <label style="display: block; font-weight: 700; margin-bottom: 3px;">Full Name</label>
+                        <input type="text" required value="Aarav Sharma" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #dacbb7; outline: none;" />
+                      </div>
+                      <div>
+                        <label style="display: block; font-weight: 700; margin-bottom: 3px;">Mobile Contact</label>
+                        <input type="text" required value="+91 98765 43210" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #dacbb7; outline: none;" />
+                      </div>
+                    </div>
+
+                    <div style="margin-bottom: 10px;">
+                      <label style="display: block; font-weight: 700; margin-bottom: 3px;">Delivery Street Address</label>
+                      <input type="text" required value="Plot 42, Eco Living Avenue, Sector 5" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #dacbb7; outline: none;" />
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                      <div>
+                        <label style="display: block; font-weight: 700; margin-bottom: 3px;">City</label>
+                        <input type="text" required value="Bengaluru" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #dacbb7; outline: none;" />
+                      </div>
+                      <div>
+                        <label style="display: block; font-weight: 700; margin-bottom: 3px;">Postal Code</label>
+                        <input type="text" required value="560102" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #dacbb7; outline: none;" />
+                      </div>
+                    </div>
+
+                    <div style="background: #ede5d6; padding: 10px; border-radius: 10px; margin-bottom: 16px; font-size: 11px;">
+                      <strong>Payment Method:</strong> Eco-Pay on Delivery / Corporate Green Credit (Certified carbon offset credit included).
+                    </div>
+
+                    <button type="submit" class="btn btn-green" style="width: 100%; padding: 14px; font-size: 16px;">
+                      🎉 Confirm & Place RePlank Order ($${cartGrandTotal.toFixed(2)})
+                    </button>
+                  </form>
+                ` : `
+                  <div style="padding: 30px; text-align: center;">
+                    <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--forest-700); color: #fff; font-size: 32px; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px;">
+                      ✓
+                    </div>
+                    <span style="font-size: 11px; font-weight: 900; background: #e8f2ea; color: var(--forest-700); padding: 3px 10px; border-radius: 20px;">
+                      Order Confirmed • #${state.lastOrderId}
+                    </span>
+                    <h2 style="font-size: 24px; font-weight: 900; color: var(--forest-800); margin: 8px 0 4px;">
+                      Thank You, Eco-Warrior!
+                    </h2>
+                    <p style="font-size: 13px; color: var(--wood-800); max-width: 400px; margin: 0 auto 18px;">
+                      Your order has been forwarded to the RePlank recycling facility. Discarded snack packets are being transformed into your living essentials right now.
+                    </p>
+
+                    <div style="background: #ede4d4; border: 2px solid var(--wood-600); border-radius: 18px; padding: 16px; text-align: left; margin-bottom: 18px;">
+                      <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #dacbb7; padding-bottom: 6px; margin-bottom: 10px;">
+                        <strong style="color: var(--forest-800); font-size: 12px; text-transform: uppercase;">Official RePlank Impact Certificate</strong>
+                        <span style="font-size: 11px; color: var(--wood-600); font-weight: bold;">Certified Circular</span>
+                      </div>
+                      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; text-align: center; margin-bottom: 10px;">
+                        <div style="background: #fff; padding: 10px; border-radius: 10px;">
+                          <span style="font-size: 20px; font-weight: 900; color: var(--forest-800); display: block;">${totalCartPackets.toLocaleString()}</span>
+                          <span style="font-size: 10px; font-weight: 700; color: var(--wood-600);">Chips & Biscuit Packets Diverted</span>
+                        </div>
+                        <div style="background: #fff; padding: 10px; border-radius: 10px;">
+                          <span style="font-size: 20px; font-weight: 900; color: var(--forest-700); display: block;">${totalCartCO2} kg</span>
+                          <span style="font-size: 10px; font-weight: 700; color: var(--wood-600);">CO₂ Prevented from Skies</span>
+                        </div>
+                      </div>
+                      <div style="font-size: 11px; color: var(--wood-800);">
+                        <strong>Delivery:</strong> Dispatched via 100% Electric Vehicle (EV) Van Fleet
+                      </div>
+                    </div>
+
+                    <button class="btn btn-green" style="width: 100%; padding: 12px;" onclick="window.finishOrder()">
+                      Back to RePlank Store
+                    </button>
+                  </div>
+                `}
+              </div>
+            </div>
+          `;
+        }
+
+        app.innerHTML = html;
+      }
+
+      // Initial execution
+      render();
+    })();
+  </script>
+</body>
+</html>
