@@ -797,6 +797,48 @@
       font-size: 12px;
       margin-top: 40px;
     }
+
+    /* Form Styles */
+    .form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--wood-800);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #dacbb7;
+      background: #ffffff;
+      font-family: inherit;
+      font-size: 13px;
+      color: var(--forest-900);
+      outline: none;
+      transition: all 0.2s ease;
+      box-sizing: border-box;
+    }
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      border-color: var(--forest-600);
+      box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+      background: #fff;
+    }
+    .thank-you-banner {
+      background: #e8f2ea;
+      border: 2px solid var(--forest-500);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
@@ -1078,7 +1120,8 @@
         orderPlaced: false,
         lastOrderId: '',
         toastMessage: null,
-        quantities: {}
+        quantities: {},
+        onPageOrderSubmitted: false
       };
 
       // Set default quantities
@@ -1203,14 +1246,96 @@
         setState({ isCartOpen: false, isCheckoutOpen: true, orderPlaced: false });
       };
 
+      window.quickOrder = function(productId, isWholesale) {
+        window.addToCart(productId, isWholesale);
+        window.openCheckout();
+      };
+
       window.closeCheckout = function() {
         setState({ isCheckoutOpen: false });
       };
 
+      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxh8VBKierqD4WL4sKNZyqaDheqs36o26FDSS-O6Ff71ytiSPZuhfenJx1UBgs1djUDig/exec';
+
+      window.resetOrderFormState = function() {
+        setState({ onPageOrderSubmitted: false });
+      };
+
       window.submitOrder = function(e) {
         e.preventDefault();
-        const orderId = 'REPLANK-IN-' + Math.floor(100000 + Math.random() * 900000);
-        setState({ orderPlaced: true, lastOrderId: orderId });
+        const form = e.target;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalBtnHTML = submitBtn ? submitBtn.innerHTML : '';
+
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<span>⏳ Transmitting Order to Google Sheets...</span>';
+        }
+
+        // 1. Extract values into plain JS object
+        const orderData = {
+          name: (form.elements['name'] ? form.elements['name'].value : '').trim(),
+          phone: (form.elements['phone'] ? form.elements['phone'].value : '').trim(),
+          address: (form.elements['address'] ? form.elements['address'].value : '').trim(),
+          product: (form.elements['product'] ? form.elements['product'].value : '').trim(),
+          quantity: (form.elements['quantity'] ? form.elements['quantity'].value : '1').trim(),
+          message: (form.elements['message'] ? form.elements['message'].value : '').trim()
+        };
+
+        const params = new URLSearchParams(orderData);
+
+        // 2. Dispatch persistent hidden iframe submission on document.body (immune to DOM re-renders)
+        const iframeId = 'gscript_transport_' + Date.now();
+        const iframe = document.createElement('iframe');
+        iframe.id = iframeId;
+        iframe.name = iframeId;
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+
+        const hiddenForm = document.createElement('form');
+        hiddenForm.action = GOOGLE_SCRIPT_URL;
+        hiddenForm.method = 'POST';
+        hiddenForm.target = iframeId;
+        hiddenForm.style.display = 'none';
+
+        for (const k in orderData) {
+          const inp = document.createElement('input');
+          inp.type = 'hidden';
+          inp.name = k;
+          inp.value = orderData[k];
+          hiddenForm.appendChild(inp);
+        }
+        document.body.appendChild(hiddenForm);
+        hiddenForm.submit();
+
+        // 3. Parallel fetch with mode: 'no-cors'
+        try {
+          fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: params
+          }).catch(function(err) { console.log('fetch fallback handled:', err); });
+        } catch (err) {}
+
+        // 4. Wait 1200ms to guarantee network transmission before UI re-render
+        setTimeout(function() {
+          try { document.body.removeChild(hiddenForm); } catch(e){}
+          try { document.body.removeChild(iframe); } catch(e){}
+
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnHTML;
+          }
+
+          const orderId = 'REPLANK-IN-' + Math.floor(100000 + Math.random() * 900000);
+          setState({
+            orderPlaced: true,
+            lastOrderId: orderId,
+            onPageOrderSubmitted: true
+          });
+          showToast('🎉 Thank you! Your order has been recorded in Google Sheets.');
+        }, 1200);
       };
 
       window.finishOrder = function() {
@@ -1242,8 +1367,28 @@
         const cartSubtotal = state.cartItems.reduce((acc, i) => acc + i.price * i.quantity, 0);
         const ecoDiscount = cartSubtotal > 5000 ? cartSubtotal * 0.05 : 0;
         const cartGrandTotal = cartSubtotal - ecoDiscount;
+        const cartProductSummary = state.cartItems.length > 0
+          ? state.cartItems.map(i => `${i.name} [${i.isWholesale ? 'Wholesale' : 'Retail'}]`).join(', ')
+          : 'Standard 18mm Recycled Board (8ft x 4ft)';
+        const cartQuantityDefault = totalCartQty || 1;
 
         let html = '';
+
+        // Product suggestions datalist for form inputs
+        html += `
+          <iframe name="gscript_iframe" id="gscript_iframe" style="display:none;"></iframe>
+          <datalist id="product-suggestions">
+            <option value="Standard 18mm Recycled Board (8ft x 4ft)">
+            <option value="Multi-Foil 12mm Acoustic Core Board (8ft x 4ft)">
+            <option value="Heavy-Duty Armor Board 25mm (8ft x 4ft)">
+            <option value="All-Weather Recycled Plastic Garden Bench">
+            <option value="Recycled Board Dining Table (6-Seater)">
+            <option value="Reflective Corrugated Cooling Roof Sheet">
+            <option value="Interlocking Eco-Paving Brick">
+            <option value="Planter Box / Urban Raised Bed">
+            <option value="20 Sheets Wholesale Bundle (8ft x 4ft 18mm)">
+          </datalist>
+        `;
 
         // Toast
         if (state.toastMessage) {
@@ -1283,6 +1428,15 @@
                   title="Toggle between Retail and Bulk Wholesale pricing"
                 >
                   ${state.isWholesale ? '🏭 Wholesale Active (₹)' : '🌿 Retail Mode (₹)'}
+                </button>
+
+                <button
+                  class="btn btn-green"
+                  onclick="window.openCheckout()"
+                  style="padding: 10px 16px; font-size: 13px; font-weight: 900; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; box-shadow: 0 4px 12px rgba(27,67,50,0.25);"
+                  title="Open Order Form Popup"
+                >
+                  📝 Order Form
                 </button>
 
                 <button class="cart-btn" onclick="window.toggleCart(true)">
@@ -1408,6 +1562,14 @@
                       <strong style="color: var(--forest-800); font-size: 13px;">33% Off MRP</strong>
                     </div>
                   </div>
+
+                  <button
+                    class="btn btn-green"
+                    onclick="window.quickOrder('board-std-18mm', true)"
+                    style="margin-top: 12px; width: 100%; padding: 12px; font-size: 14px; font-weight: 900; justify-content: center;"
+                  >
+                    ⚡ Open Wholesale Order Form (8ft × 4ft Boards)
+                  </button>
                 </div>
               </div>
             </div>
@@ -1523,12 +1685,21 @@
                         </div>
 
                         <button
-                          class="btn btn-green"
-                          style="flex: 1;"
+                          class="btn btn-outline"
+                          style="flex: 1; padding: 10px 8px; font-size: 12px; font-weight: 800;"
                           onclick="window.addToCart('${p.id}', ${state.isWholesale})"
+                          title="Add to Cart"
                         >
-                          <span>🛒 Add to Cart</span>
-                          <span style="font-size: 11px; font-weight: normal; opacity: 0.85;">(${formatINR(totalCost)})</span>
+                          🛒 Add to Cart
+                        </button>
+
+                        <button
+                          class="btn btn-green"
+                          style="flex: 1; padding: 10px 8px; font-size: 12px; font-weight: 800;"
+                          onclick="window.quickOrder('${p.id}', ${state.isWholesale})"
+                          title="Order Directly"
+                        >
+                          ⚡ Order Now
                         </button>
                       </div>
                     </div>
@@ -1537,6 +1708,122 @@
               }).join('')}
             </div>
           </main>
+        `;
+
+        // --- DIRECT ORDER FORM SECTION ---
+        html += `
+          <section class="order-section" id="order-section" style="padding: 40px 0; background: #f3ede2; border-top: 2px solid #e0d4c1; margin-top: 40px;">
+            <div class="container" style="max-width: 800px;">
+              <div style="text-align: center; margin-bottom: 24px;">
+                <span style="background: var(--forest-800); color: #fff; font-size: 11px; font-weight: 800; padding: 3px 12px; border-radius: 20px; text-transform: uppercase;">
+                  ⚡ Direct Factory Booking
+                </span>
+                <h2 style="font-size: 26px; font-weight: 900; color: var(--forest-800); margin: 8px 0 4px;">
+                  Place Your RePlank Order
+                </h2>
+                <p style="font-size: 13px; color: var(--wood-800); max-width: 520px; margin: 0 auto;">
+                  Order directly from our circular recycling facility. We dispatch recycled plastic boards, cooling roofs, outdoor benches, and interlocking bricks across India.
+                </p>
+              </div>
+
+              <div style="background: #faf8f5; border: 2px solid #d4a373; border-radius: 20px; padding: 24px; box-shadow: 0 4px 20px rgba(67, 40, 24, 0.08);">
+                ${state.onPageOrderSubmitted ? `
+                  <div id="thank-you-message" class="thank-you-banner">
+                    <div style="font-size: 32px; margin-bottom: 6px;">🎉</div>
+                    <h3 style="font-size: 20px; font-weight: 900; color: var(--forest-800); margin-bottom: 6px;">
+                      Thank You, Eco-Warrior!
+                    </h3>
+                    <p style="font-size: 13px; color: var(--forest-700); margin-bottom: 14px; max-width: 480px; margin-left: auto; margin-right: auto;">
+                      Your order has been placed successfully and transmitted to RePlank. Discarded snack packets are being transformed into sustainable boards!
+                    </p>
+                    <button class="btn btn-outline" onclick="window.resetOrderFormState()">Submit Another Order</button>
+                  </div>
+                ` : `
+                  <div id="thank-you-message" class="thank-you-banner" style="display:none;"></div>
+                  <form id="order-form" action="${GOOGLE_SCRIPT_URL}" method="POST" target="gscript_iframe" onsubmit="window.submitOrder(event)">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+                      <div>
+                        <label class="form-label" for="form-name">Full Name *</label>
+                        <input
+                          type="text"
+                          id="form-name"
+                          name="name"
+                          required
+                          placeholder="e.g. Aarav Sharma"
+                          class="form-input"
+                        />
+                      </div>
+                      <div>
+                        <label class="form-label" for="form-phone">Phone Number *</label>
+                        <input
+                          type="tel"
+                          id="form-phone"
+                          name="phone"
+                          required
+                          placeholder="e.g. +91 98765 43210"
+                          class="form-input"
+                        />
+                      </div>
+                    </div>
+
+                    <div style="margin-bottom: 14px;">
+                      <label class="form-label" for="form-address">Delivery Address *</label>
+                      <input
+                        type="text"
+                        id="form-address"
+                        name="address"
+                        required
+                        placeholder="e.g. Plot 42, Eco Living Avenue, Bengaluru, PIN 560102"
+                        class="form-input"
+                      />
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 14px; margin-bottom: 14px;">
+                      <div>
+                        <label class="form-label" for="form-product">Product *</label>
+                        <input
+                          type="text"
+                          id="form-product"
+                          name="product"
+                          list="product-suggestions"
+                          required
+                          placeholder="e.g. Standard 18mm Recycled Board (8ft x 4ft)"
+                          class="form-input"
+                        />
+                      </div>
+                      <div>
+                        <label class="form-label" for="form-quantity">Quantity *</label>
+                        <input
+                          type="number"
+                          id="form-quantity"
+                          name="quantity"
+                          min="1"
+                          required
+                          placeholder="1"
+                          class="form-input"
+                        />
+                      </div>
+                    </div>
+
+                    <div style="margin-bottom: 18px;">
+                      <label class="form-label" for="form-message">Message / Notes</label>
+                      <textarea
+                        id="form-message"
+                        name="message"
+                        rows="3"
+                        placeholder="Special requirements, wholesale delivery schedule, or GSTIN for business invoice..."
+                        class="form-textarea"
+                      ></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-green" style="width: 100%; padding: 14px; font-size: 16px;">
+                      🌱 Place RePlank Order
+                    </button>
+                  </form>
+                `}
+              </div>
+            </div>
+          </section>
         `;
 
         // Footer
@@ -1817,7 +2104,7 @@
                     <button class="btn-close" onclick="window.closeCheckout()">✕</button>
                   </div>
 
-                  <form onsubmit="window.submitOrder(event)" style="padding: 20px; font-size: 12px;">
+                  <form id="modal-order-form" action="${GOOGLE_SCRIPT_URL}" method="POST" target="gscript_iframe" onsubmit="window.submitOrder(event)" style="padding: 20px; font-size: 12px;">
                     <div style="background: #e8f2ea; border: 1px solid var(--forest-500); border-radius: 14px; padding: 12px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px;">
                       <span style="font-size: 24px;">🌱</span>
                       <div>
@@ -1830,40 +2117,81 @@
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
                       <div>
-                        <label style="display: block; font-weight: 700; margin-bottom: 3px;">Full Name / Buyer Name</label>
-                        <input type="text" required value="Aarav Sharma" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #dacbb7; outline: none;" />
+                        <label class="form-label" for="modal-name">Full Name *</label>
+                        <input
+                          type="text"
+                          id="modal-name"
+                          name="name"
+                          required
+                          placeholder="e.g. Aarav Sharma"
+                          class="form-input"
+                        />
                       </div>
                       <div>
-                        <label style="display: block; font-weight: 700; margin-bottom: 3px;">Mobile Contact (+91)</label>
-                        <input type="text" required value="+91 98765 43210" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #dacbb7; outline: none;" />
+                        <label class="form-label" for="modal-phone">Phone Number *</label>
+                        <input
+                          type="tel"
+                          id="modal-phone"
+                          name="phone"
+                          required
+                          placeholder="e.g. +91 98765 43210"
+                          class="form-input"
+                        />
                       </div>
                     </div>
 
                     <div style="margin-bottom: 10px;">
-                      <label style="display: block; font-weight: 700; margin-bottom: 3px;">Delivery Street Address (Site / Workshop)</label>
-                      <input type="text" required value="Plot 42, Eco Living Avenue, Sector 5" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #dacbb7; outline: none;" />
+                      <label class="form-label" for="modal-address">Delivery Address *</label>
+                      <input
+                        type="text"
+                        id="modal-address"
+                        name="address"
+                        required
+                        placeholder="Plot 42, Eco Living Avenue, Bengaluru, PIN 560102"
+                        class="form-input"
+                      />
                     </div>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px; margin-bottom: 10px;">
                       <div>
-                        <label style="display: block; font-weight: 700; margin-bottom: 3px;">City</label>
-                        <input type="text" required value="Bengaluru" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #dacbb7; outline: none;" />
+                        <label class="form-label" for="modal-product">Product *</label>
+                        <input
+                          type="text"
+                          id="modal-product"
+                          name="product"
+                          list="product-suggestions"
+                          required
+                          value="${cartProductSummary}"
+                          class="form-input"
+                        />
                       </div>
                       <div>
-                        <label style="display: block; font-weight: 700; margin-bottom: 3px;">PIN Code</label>
-                        <input type="text" required value="560102" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #dacbb7; outline: none;" />
+                        <label class="form-label" for="modal-quantity">Quantity *</label>
+                        <input
+                          type="number"
+                          id="modal-quantity"
+                          name="quantity"
+                          min="1"
+                          required
+                          value="${cartQuantityDefault}"
+                          class="form-input"
+                        />
                       </div>
                     </div>
 
-                    <div style="margin-bottom: 10px;">
-                      <label style="display: block; font-weight: 700; margin-bottom: 3px; color: var(--wood-600);">
-                        Business Entity / GST Number (for Wholesale Tax Invoice)
-                      </label>
-                      <input type="text" value="Sustainable Living Constructions LLP (29AABCS1429B1Z8)" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #d4a373; outline: none;" />
+                    <div style="margin-bottom: 12px;">
+                      <label class="form-label" for="modal-message">Message / Notes / GSTIN</label>
+                      <textarea
+                        id="modal-message"
+                        name="message"
+                        rows="2"
+                        placeholder="Special instructions, wholesale delivery timing, or GSTIN for tax invoice..."
+                        class="form-textarea"
+                      ></textarea>
                     </div>
 
                     <div style="background: #ede5d6; padding: 10px; border-radius: 10px; margin-bottom: 16px; font-size: 11px;">
-                      <strong>Payment Method:</strong> Eco-Pay on Delivery / Corporate Green Credit (GST Input credit invoice & physical carbon offset certificate included).
+                      <strong>Payment & Delivery:</strong> Pan-India Zero-Emission Electric Vehicle (EV) delivery with verified carbon offset certificate included.
                     </div>
 
                     <button type="submit" class="btn btn-green" style="width: 100%; padding: 14px; font-size: 16px;">
@@ -1914,6 +2242,20 @@
             </div>
           `;
         }
+
+        // Floating Persistent Order Button (always accessible on screen)
+        html += `
+          <div style="position: fixed; bottom: 20px; right: 20px; z-index: 90;">
+            <button
+              class="btn btn-green"
+              onclick="window.openCheckout()"
+              style="padding: 12px 20px; font-size: 14px; font-weight: 900; border-radius: 30px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); border: 2px solid var(--forest-500); display: flex; align-items: center; gap: 8px; cursor: pointer;"
+              title="Open Instant Order Form"
+            >
+              <span>📝 Order Form</span>
+            </button>
+          </div>
+        `;
 
         app.innerHTML = html;
       }

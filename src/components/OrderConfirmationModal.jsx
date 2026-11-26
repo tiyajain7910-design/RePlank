@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxh8VBKierqD4WL4sKNZyqaDheqs36o26FDSS-O6Ff71ytiSPZuhfenJx1UBgs1djUDig/exec';
+
 export const OrderConfirmationModal = ({ isOpen, onClose, cartItems, onCompleteOrder }) => {
   if (!isOpen) return null;
 
@@ -7,12 +9,12 @@ export const OrderConfirmationModal = ({ isOpen, onClose, cartItems, onCompleteO
   const [formData, setFormData] = useState({
     name: 'Aarav Sharma',
     phone: '+91 98765 43210',
-    email: 'eco.builder@greenearth.org',
-    address: 'Plot 42, Eco Living Avenue, Sector 5',
-    city: 'Bengaluru',
-    pincode: '560102',
-    isCommercial: cartItems.some(i => i.isWholesale),
-    companyName: 'Sustainable Living Constructions LLP (29AABCS1429B1Z8)'
+    address: 'Plot 42, Eco Living Avenue, Sector 5, Bengaluru, PIN 560102',
+    product: cartItems.length > 0
+      ? cartItems.map(i => `${i.name} [${i.isWholesale ? 'Wholesale' : 'Retail'}]`).join(', ')
+      : 'Standard 18mm Recycled Board (8ft x 4ft)',
+    quantity: cartItems.reduce((acc, i) => acc + i.quantity, 0) || 1,
+    message: ''
   });
 
   const formatINR = (val) => '₹' + Math.round(val).toLocaleString('en-IN');
@@ -26,6 +28,17 @@ export const OrderConfirmationModal = ({ isOpen, onClose, cartItems, onCompleteO
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const form = e.target;
+    const formDataObj = new FormData(form);
+    const params = new URLSearchParams(formDataObj);
+
+    fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: params
+    }).catch((err) => console.error('Order submission error:', err));
+
+    form.reset();
     setStep('success');
     onCompleteOrder();
   };
@@ -83,6 +96,7 @@ export const OrderConfirmationModal = ({ isOpen, onClose, cartItems, onCompleteO
                     <label className="block font-bold text-gray-700 mb-1">Full Name</label>
                     <input
                       type="text"
+                      name="name"
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -93,7 +107,8 @@ export const OrderConfirmationModal = ({ isOpen, onClose, cartItems, onCompleteO
                   <div>
                     <label className="block font-bold text-gray-700 mb-1">Mobile Contact (+91)</label>
                     <input
-                      type="text"
+                      type="tel"
+                      name="phone"
                       required
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -103,9 +118,10 @@ export const OrderConfirmationModal = ({ isOpen, onClose, cartItems, onCompleteO
                 </div>
 
                 <div>
-                  <label className="block font-bold text-gray-700 mb-1">Delivery Street Address (Site / Workshop)</label>
+                  <label className="block font-bold text-gray-700 mb-1">Delivery Address</label>
                   <input
                     type="text"
+                    name="address"
                     required
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
@@ -115,41 +131,44 @@ export const OrderConfirmationModal = ({ isOpen, onClose, cartItems, onCompleteO
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block font-bold text-gray-700 mb-1">City / Town</label>
+                    <label className="block font-bold text-gray-700 mb-1">Product</label>
                     <input
                       type="text"
+                      name="product"
                       required
-                      value={formData.city}
-                      onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                      value={formData.product}
+                      onChange={(e) => setFormData({ ...formData, product: e.target.value })}
                       className="w-full p-2.5 bg-white border border-[#dacbb7] rounded-xl focus:border-[#1b4332] outline-none text-xs"
                     />
                   </div>
 
                   <div>
-                    <label className="block font-bold text-gray-700 mb-1">PIN Code</label>
+                    <label className="block font-bold text-gray-700 mb-1">Quantity</label>
                     <input
-                      type="text"
+                      type="number"
+                      name="quantity"
+                      min="1"
                       required
-                      value={formData.pincode}
-                      onChange={(e) => setFormData({ ...formData, pincode: e.target.value })}
+                      value={formData.quantity}
+                      onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
                       className="w-full p-2.5 bg-white border border-[#dacbb7] rounded-xl focus:border-[#1b4332] outline-none text-xs"
                     />
                   </div>
                 </div>
 
-                {formData.isCommercial && (
-                  <div>
-                    <label className="block font-bold text-[#8c6239] mb-1">
-                      Business Entity / GST Number (for B2B Wholesale GST Tax Invoice)
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.companyName}
-                      onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                      className="w-full p-2.5 bg-white border border-[#8c6239] rounded-xl focus:border-[#1b4332] outline-none text-xs"
-                    />
-                  </div>
-                )}
+                <div>
+                  <label className="block font-bold text-[#8c6239] mb-1">
+                    Message / Delivery Notes / GSTIN
+                  </label>
+                  <textarea
+                    name="message"
+                    rows="2"
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    placeholder="Special instructions, wholesale notes, or GSTIN..."
+                    className="w-full p-2.5 bg-white border border-[#8c6239] rounded-xl focus:border-[#1b4332] outline-none text-xs"
+                  ></textarea>
+                </div>
               </div>
 
               {/* Action Buttons */}

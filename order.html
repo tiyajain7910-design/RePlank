@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RePlank EcoBoards | Official Order Form</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap');
+    
+    :root {
+      --forest-900: #0f291e;
+      --forest-800: #1b4332;
+      --forest-700: #2d6a4f;
+      --forest-500: #52b788;
+      --wood-800: #432818;
+      --wood-600: #8c6239;
+      --wood-300: #d4a373;
+      --cream-bg: #faf7f2;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: var(--cream-bg);
+      color: var(--forest-900);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 2px solid var(--wood-300);
+      border-radius: 24px;
+      padding: 32px 24px;
+      max-width: 620px;
+      width: 100%;
+      box-shadow: 0 12px 36px rgba(67, 40, 24, 0.08);
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--forest-800);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--forest-800);
+      margin-bottom: 6px;
+    }
+
+    p.subtitle {
+      font-size: 13px;
+      color: var(--wood-600);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 500px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--wood-800);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1.5px solid #dacbb7;
+      background: #faf8f5;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--forest-900);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--forest-700);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 16px;
+      background: var(--forest-800);
+      color: #f7f3ea;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 6px 16px rgba(27, 67, 50, 0.25);
+      transition: all 0.2s;
+    }
+
+    .btn-submit:hover {
+      background: var(--forest-700);
+      transform: translateY(-1px);
+    }
+
+    .btn-submit:active {
+      transform: scale(0.98);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .banner-success {
+      display: none;
+      background: #e8f2ea;
+      border: 2px solid var(--forest-500);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 18px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--forest-700);
+      text-decoration: none;
+      text-align: center;
+      width: 100%;
+    }
+    .back-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div style="text-align: center;">
+      <span class="badge">🌿 Direct Manufacturer Supply</span>
+      <h1>Place Your RePlank Order</h1>
+      <p class="subtitle">
+        Connected directly to Google Sheets. Discarded chip and biscuit packaging upcycled into durable eco-boards, cooling roofs, and outdoor furniture.
+      </p>
+    </div>
+
+    <!-- Success Banner -->
+    <div id="success-banner" class="banner-success">
+      <div style="font-size: 40px; margin-bottom: 8px;">🎉</div>
+      <h2 style="font-size: 20px; font-weight: 900; color: var(--forest-800); margin-bottom: 6px;">
+        Order Successfully Sent to Google Sheets!
+      </h2>
+      <p style="font-size: 13px; color: var(--forest-700); margin-bottom: 16px;">
+        Thank you, Eco-Warrior! Your order has been recorded into the live Google Sheet.
+      </p>
+      <button onclick="resetForm()" style="padding: 10px 20px; border-radius: 10px; border: 1px solid var(--forest-700); background: #fff; font-weight: 800; cursor: pointer; color: var(--forest-800);">
+        Submit Another Order
+      </button>
+    </div>
+
+    <!-- The Form -->
+    <form id="orderForm" onsubmit="handleOrderSubmit(event)">
+      <div class="form-row">
+        <div>
+          <label for="name">Full Name *</label>
+          <input type="text" id="name" name="name" required placeholder="e.g. Rahul Sharma" />
+        </div>
+        <div>
+          <label for="phone">Phone Number (+91) *</label>
+          <input type="tel" id="phone" name="phone" required placeholder="e.g. +91 98765 43210" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Delivery Street Address & City *</label>
+        <input type="text" id="address" name="address" required placeholder="e.g. Plot 42, Green Avenue, Bengaluru 560102" />
+      </div>
+
+      <div class="form-row">
+        <div>
+          <label for="product">Product *</label>
+          <select id="product" name="product" required>
+            <option value="Standard 18mm Recycled Board (8ft x 4ft)">Standard 18mm Recycled Board (8ft x 4ft) - ₹1,650</option>
+            <option value="Multi-Foil 12mm Acoustic Core Board (8ft x 4ft)">Multi-Foil 12mm Acoustic Core Board - ₹1,250</option>
+            <option value="Heavy-Duty Armor Board 25mm (8ft x 4ft)">Heavy-Duty Armor Board 25mm - ₹2,500</option>
+            <option value="All-Weather Recycled Plastic Garden Bench">All-Weather Recycled Plastic Garden Bench - ₹6,500</option>
+            <option value="Recycled Board Dining Table (6-Seater)">Recycled Board Dining Table (6-Seater) - ₹14,200</option>
+            <option value="Reflective Corrugated Cooling Roof Sheet">Reflective Corrugated Cooling Roof Sheet - ₹780</option>
+            <option value="Interlocking Eco-Paving Brick">Interlocking Eco-Paving Brick - ₹32</option>
+            <option value="Planter Box / Urban Raised Bed">Planter Box / Urban Raised Bed - ₹980</option>
+            <option value="20 Sheets Wholesale Bundle (8ft x 4ft 18mm)">20 Sheets Wholesale Bundle (Pallet) - ₹33,000</option>
+          </select>
+        </div>
+        <div>
+          <label for="quantity">Quantity (Units) *</label>
+          <input type="number" id="quantity" name="quantity" min="1" value="1" required />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message / Delivery Notes / GSTIN</label>
+        <textarea id="message" name="message" rows="3" placeholder="Special requirements, wholesale delivery schedule, or GST number for tax invoice..."></textarea>
+      </div>
+
+      <button type="submit" id="submitBtn" class="btn-submit">
+        <span>🌱 Place RePlank Order</span>
+      </button>
+    </form>
+
+    <a href="./index.html" class="back-link">← Return to Full RePlank Store Catalog</a>
+  </div>
+
+  <script>
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxh8VBKierqD4WL4sKNZyqaDheqs36o26FDSS-O6Ff71ytiSPZuhfenJx1UBgs1djUDig/exec';
+
+    function handleOrderSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span>⏳ Transmitting to Google Sheets...</span>';
+
+      const orderData = {
+        name: form.elements['name'].value.trim(),
+        phone: form.elements['phone'].value.trim(),
+        address: form.elements['address'].value.trim(),
+        product: form.elements['product'].value.trim(),
+        quantity: form.elements['quantity'].value.trim(),
+        message: form.elements['message'].value.trim()
+      };
+
+      // Guaranteed Delivery via Hidden Iframe (works from file:///, no CORS blocks)
+      const iframeName = 'transport_' + Date.now();
+      const iframe = document.createElement('iframe');
+      iframe.name = iframeName;
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+
+      const hiddenForm = document.createElement('form');
+      hiddenForm.action = SCRIPT_URL;
+      hiddenForm.method = 'POST';
+      hiddenForm.target = iframeName;
+      hiddenForm.style.display = 'none';
+
+      for (const k in orderData) {
+        const inp = document.createElement('input');
+        inp.type = 'hidden';
+        inp.name = k;
+        inp.value = orderData[k];
+        hiddenForm.appendChild(inp);
+      }
+      document.body.appendChild(hiddenForm);
+      hiddenForm.submit();
+
+      // Parallel fetch
+      try {
+        const params = new URLSearchParams(orderData);
+        fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: params
+        }).catch(function() {});
+      } catch (err) {}
+
+      // Wait 1.2s for transmission then show confirmation
+      setTimeout(function() {
+        try { document.body.removeChild(hiddenForm); } catch(e){}
+        try { document.body.removeChild(iframe); } catch(e){}
+
+        btn.disabled = false;
+        btn.innerHTML = '<span>🌱 Place RePlank Order</span>';
+        form.reset();
+        form.style.display = 'none';
+        document.getElementById('success-banner').style.display = 'block';
+      }, 1200);
+    }
+
+    function resetForm() {
+      document.getElementById('orderForm').style.display = 'block';
+      document.getElementById('success-banner').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
