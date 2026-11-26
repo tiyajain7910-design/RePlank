@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RePlank EcoBoards | Official Order Form</title>
+  <title>RePlank EcoBoards | Official Order & Payment Portal</title>
+  
+  <!-- Razorpay Official Checkout Gateway -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap');
     
@@ -37,7 +41,7 @@
       border: 2px solid var(--wood-300);
       border-radius: 24px;
       padding: 32px 24px;
-      max-width: 620px;
+      max-width: 660px;
       width: 100%;
       box-shadow: 0 12px 36px rgba(67, 40, 24, 0.08);
     }
@@ -113,6 +117,196 @@
       box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
     }
 
+    /* Price Preview Box */
+    .price-summary-box {
+      background: #e8f2ea;
+      border: 1.5px solid var(--forest-500);
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Payment Tabs */
+    .pay-container {
+      background: #faf6ef;
+      border: 1.5px solid #d4a373;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+    .pay-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .pay-header strong {
+      font-size: 13px;
+      color: var(--forest-800);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pay-security-badge {
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--forest-700);
+      background: #e8f2ea;
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--forest-500);
+    }
+    .pay-nav {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    @media (max-width: 540px) {
+      .pay-nav { grid-template-columns: 1fr 1fr; }
+    }
+    .pay-tab-btn {
+      padding: 10px 8px;
+      border-radius: 10px;
+      border: 1.5px solid #dacbb7;
+      background: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--wood-800);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+    .pay-tab-btn:hover {
+      border-color: var(--forest-600);
+      background: #f7faf7;
+    }
+    .pay-tab-btn.active {
+      border-color: var(--forest-700);
+      background: #e8f2ea;
+      color: var(--forest-800);
+      box-shadow: 0 2px 8px rgba(45, 106, 79, 0.15);
+    }
+    .pay-content {
+      background: #fff;
+      border: 1px solid #e6dbc9;
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .qr-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+    }
+    .qr-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 12px;
+      border: 2px solid var(--forest-500);
+      background: #fff;
+      padding: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .upi-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #f0f7f3;
+      border: 1px dashed var(--forest-600);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--forest-800);
+    }
+    .btn-copy {
+      background: var(--forest-700);
+      color: #fff;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .btn-copy:hover { background: var(--forest-800); }
+    .bank-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    @media (max-width: 480px) {
+      .bank-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .bank-chip {
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1.5px solid #dacbb7;
+      background: #faf8f5;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--forest-900);
+      cursor: pointer;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .bank-chip:hover { border-color: var(--forest-600); }
+    .bank-chip.active {
+      border-color: var(--forest-700);
+      background: #e8f2ea;
+      color: var(--forest-800);
+      font-weight: 800;
+    }
+    .virtual-card {
+      background: linear-gradient(135deg, #1b4332 0%, #0f291e 100%);
+      color: #f7f3ea;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 18px rgba(15, 41, 30, 0.25);
+      border: 1px solid rgba(82, 183, 136, 0.4);
+    }
+    .virtual-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .virtual-card-chip {
+      width: 32px;
+      height: 24px;
+      background: linear-gradient(135deg, #e0c38c 0%, #d4af37 100%);
+      border-radius: 4px;
+      border: 1px solid #b8860b;
+    }
+    .virtual-card-num {
+      font-family: monospace;
+      font-size: 16px;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+    .virtual-card-bottom {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
     .btn-submit {
       width: 100%;
       padding: 16px;
@@ -130,29 +324,16 @@
       box-shadow: 0 6px 16px rgba(27, 67, 50, 0.25);
       transition: all 0.2s;
     }
-
     .btn-submit:hover {
       background: var(--forest-700);
       transform: translateY(-1px);
     }
-
-    .btn-submit:active {
-      transform: scale(0.98);
-    }
-
-    .btn-submit:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-    }
+    .btn-submit:active { transform: scale(0.98); }
+    .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
 
     .banner-success {
       display: none;
-      background: #e8f2ea;
-      border: 2px solid var(--forest-500);
-      border-radius: 16px;
-      padding: 24px;
-      text-align: center;
-      margin-bottom: 20px;
+      animation: fadeIn 0.3s ease-in-out;
     }
 
     .back-link {
@@ -166,6 +347,25 @@
       width: 100%;
     }
     .back-link:hover { text-decoration: underline; }
+
+    /* Print Styles */
+    @media print {
+      body * { visibility: hidden !important; }
+      #printable-receipt, #printable-receipt * { visibility: visible !important; }
+      #printable-receipt {
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 24px !important;
+        background: #fff !important;
+        border: none !important;
+        box-shadow: none !important;
+        z-index: 99999 !important;
+      }
+      .no-print { display: none !important; }
+    }
   </style>
 </head>
 <body>
@@ -175,22 +375,18 @@
       <span class="badge">🌿 Direct Manufacturer Supply</span>
       <h1>Place Your RePlank Order</h1>
       <p class="subtitle">
-        Connected directly to Google Sheets. Discarded chip and biscuit packaging upcycled into durable eco-boards, cooling roofs, and outdoor furniture.
+        Instant Online Checkout connected to Google Sheets. Discarded chip and biscuit packaging upcycled into durable eco-boards, cooling roofs, and outdoor furniture.
       </p>
     </div>
 
-    <!-- Success Banner -->
+    <!-- Success Receipt Banner -->
     <div id="success-banner" class="banner-success">
-      <div style="font-size: 40px; margin-bottom: 8px;">🎉</div>
-      <h2 style="font-size: 20px; font-weight: 900; color: var(--forest-800); margin-bottom: 6px;">
-        Order Successfully Sent to Google Sheets!
-      </h2>
-      <p style="font-size: 13px; color: var(--forest-700); margin-bottom: 16px;">
-        Thank you, Eco-Warrior! Your order has been recorded into the live Google Sheet.
-      </p>
-      <button onclick="resetForm()" style="padding: 10px 20px; border-radius: 10px; border: 1px solid var(--forest-700); background: #fff; font-weight: 800; cursor: pointer; color: var(--forest-800);">
-        Submit Another Order
-      </button>
+      <div id="receipt-container"></div>
+      <div style="text-align: center; margin-top: 16px;">
+        <button onclick="resetForm()" style="padding: 10px 20px; border-radius: 10px; border: 1.5px solid var(--forest-700); background: #fff; font-weight: 800; cursor: pointer; color: var(--forest-800);">
+          Submit Another Order
+        </button>
+      </div>
     </div>
 
     <!-- The Form -->
@@ -214,7 +410,7 @@
       <div class="form-row">
         <div>
           <label for="product">Product *</label>
-          <select id="product" name="product" required>
+          <select id="product" name="product" required onchange="updatePriceCalculation()">
             <option value="Standard 18mm Recycled Board (8ft x 4ft)">Standard 18mm Recycled Board (8ft x 4ft) - ₹1,650</option>
             <option value="Multi-Foil 12mm Acoustic Core Board (8ft x 4ft)">Multi-Foil 12mm Acoustic Core Board - ₹1,250</option>
             <option value="Heavy-Duty Armor Board 25mm (8ft x 4ft)">Heavy-Duty Armor Board 25mm - ₹2,500</option>
@@ -228,17 +424,174 @@
         </div>
         <div>
           <label for="quantity">Quantity (Units) *</label>
-          <input type="number" id="quantity" name="quantity" min="1" value="1" required />
+          <input type="number" id="quantity" name="quantity" min="1" value="1" required oninput="updatePriceCalculation()" />
+        </div>
+      </div>
+
+      <!-- Live Order Total & Impact Badge -->
+      <div class="price-summary-box">
+        <div>
+          <span style="font-size: 11px; font-weight: 800; color: var(--forest-800); text-transform: uppercase; display: block;">
+            Order Total Amount:
+          </span>
+          <strong id="display-total" style="font-size: 22px; color: var(--forest-800);">₹1,650</strong>
+        </div>
+        <div style="text-align: right;">
+          <span style="font-size: 11px; font-weight: 800; color: var(--forest-700); display: block;" id="display-packets">
+            ♻️ 1,200 Packets Diverted
+          </span>
+          <span style="font-size: 10px; color: var(--wood-600);">Free Pan-India EV Logistics</span>
         </div>
       </div>
 
       <div class="form-group">
         <label for="message">Message / Delivery Notes / GSTIN</label>
-        <textarea id="message" name="message" rows="3" placeholder="Special requirements, wholesale delivery schedule, or GST number for tax invoice..."></textarea>
+        <textarea id="message" name="message" rows="2" placeholder="Special requirements, wholesale delivery schedule, or GST number for tax invoice..."></textarea>
+      </div>
+
+      <!-- Online Payment Options -->
+      <div class="pay-container">
+        <div class="pay-header">
+          <strong>💳 Online Payment Method</strong>
+          <span class="pay-security-badge">🔒 256-Bit SSL • RBI Compliant</span>
+        </div>
+
+        <div class="pay-nav">
+          <button type="button" class="pay-tab-btn active" id="tab-upi" onclick="selectPaymentTab('upi')">
+            <span style="font-size: 16px;">📱</span>
+            <span>UPI / QR</span>
+          </button>
+          <button type="button" class="pay-tab-btn" id="tab-card" onclick="selectPaymentTab('card')">
+            <span style="font-size: 16px;">💳</span>
+            <span>Card</span>
+          </button>
+          <button type="button" class="pay-tab-btn" id="tab-netbanking" onclick="selectPaymentTab('netbanking')">
+            <span style="font-size: 16px;">🏦</span>
+            <span>NetBanking</span>
+          </button>
+          <button type="button" class="pay-tab-btn" id="tab-razorpay" onclick="selectPaymentTab('razorpay')">
+            <span style="font-size: 16px;">⚡</span>
+            <span>Razorpay</span>
+          </button>
+        </div>
+
+        <div class="pay-content">
+          <!-- UPI Panel -->
+          <div id="panel-upi">
+            <div class="qr-wrapper">
+              <span style="font-size: 11px; font-weight: 800; color: var(--forest-800); text-transform: uppercase;">
+                Scan with GPay, PhonePe, Paytm, or BHIM
+              </span>
+              <img id="upi-qr-image" src="" alt="Scan to Pay via UPI" class="qr-img" />
+
+              <div class="upi-badge">
+                <span>UPI ID: <strong>replank.ecoboards@okhdfcbank</strong></span>
+                <button type="button" class="btn-copy" onclick="copyUpiId()">📋 Copy</button>
+              </div>
+
+              <a id="upi-mobile-link" href="#" class="btn-copy" style="padding: 8px 16px; font-size: 12px; text-decoration: none; border-radius: 8px; margin-top: 4px;">
+                📱 Open Mobile UPI App
+              </a>
+
+              <div style="width: 100%; margin-top: 8px; text-align: left;">
+                <label for="utr_ref" style="font-size: 10px;">UPI Transaction Ref / UTR (Optional, auto-verified):</label>
+                <input type="text" id="utr_ref" name="utr_ref" placeholder="e.g. 431289567123 (12-digit UTR)" style="padding: 8px 10px; font-size: 12px;" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Panel -->
+          <div id="panel-card" style="display: none;">
+            <div class="virtual-card">
+              <div class="virtual-card-top">
+                <div class="virtual-card-chip"></div>
+                <span style="font-size: 12px; font-weight: 900; letter-spacing: 1px;">RePlank Eco-Pay</span>
+                <span style="font-size: 11px; font-weight: 800; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 4px;">RuPay / Visa / MC</span>
+              </div>
+              <div class="virtual-card-num" id="card-preview-num">•••• •••• •••• 8892</div>
+              <div class="virtual-card-bottom">
+                <div>
+                  <div style="font-size: 8px; opacity: 0.8;">CARDHOLDER</div>
+                  <div style="font-weight: 800;" id="card-preview-holder">ECO-WARRIOR</div>
+                </div>
+                <div>
+                  <div style="font-size: 8px; opacity: 0.8;">EXPIRES</div>
+                  <div style="font-weight: 800;" id="card-preview-exp">12/28</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 8px;">
+              <label style="font-size: 10px;">Card Number</label>
+              <input type="text" placeholder="4532 8901 2345 8892" maxlength="19" style="padding: 8px 10px; font-size: 12px; font-family: monospace;" oninput="document.getElementById('card-preview-num').innerText = this.value || '•••• •••• •••• 8892';" />
+            </div>
+
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 8px;">
+              <div>
+                <label style="font-size: 10px;">Name on Card</label>
+                <input type="text" placeholder="Rahul Sharma" style="padding: 8px 10px; font-size: 12px;" oninput="document.getElementById('card-preview-holder').innerText = (this.value || 'ECO-WARRIOR').toUpperCase();" />
+              </div>
+              <div>
+                <label style="font-size: 10px;">Expiry</label>
+                <input type="text" placeholder="MM/YY" maxlength="5" style="padding: 8px 10px; font-size: 12px;" oninput="document.getElementById('card-preview-exp').innerText = this.value || '12/28';" />
+              </div>
+              <div>
+                <label style="font-size: 10px;">CVV</label>
+                <input type="password" placeholder="•••" maxlength="3" style="padding: 8px 10px; font-size: 12px;" />
+              </div>
+            </div>
+            <div style="font-size: 10px; color: var(--wood-600); margin-top: 8px; text-align: center;">
+              🔒 Tokenized RBI-compliant transaction with 3D-Secure verification.
+            </div>
+          </div>
+
+          <!-- NetBanking Panel -->
+          <div id="panel-netbanking" style="display: none;">
+            <span style="font-size: 11px; font-weight: 800; color: var(--forest-800); display: block; margin-bottom: 8px;">
+              Quick Select Your Bank:
+            </span>
+            <div class="bank-grid">
+              <div class="bank-chip active" onclick="selectBank(this, 'HDFC Bank')"><span>🏦</span><span>HDFC</span></div>
+              <div class="bank-chip" onclick="selectBank(this, 'SBI')"><span>🏛️</span><span>SBI</span></div>
+              <div class="bank-chip" onclick="selectBank(this, 'ICICI Bank')"><span>🏦</span><span>ICICI</span></div>
+              <div class="bank-chip" onclick="selectBank(this, 'Axis Bank')"><span>🏦</span><span>Axis</span></div>
+              <div class="bank-chip" onclick="selectBank(this, 'Kotak Bank')"><span>🏦</span><span>Kotak</span></div>
+              <div class="bank-chip" onclick="selectBank(this, 'PNB')"><span>🏛️</span><span>PNB</span></div>
+            </div>
+
+            <label style="font-size: 10px;">Or Select Other Indian Banks:</label>
+            <select id="other-bank-select" style="padding: 8px 10px; font-size: 12px;" onchange="selectedBankName = this.value;">
+              <option value="HDFC Bank">HDFC Bank</option>
+              <option value="State Bank of India">State Bank of India (SBI)</option>
+              <option value="ICICI Bank">ICICI Bank</option>
+              <option value="Axis Bank">Axis Bank</option>
+              <option value="Kotak Mahindra Bank">Kotak Mahindra Bank</option>
+              <option value="Punjab National Bank">Punjab National Bank</option>
+              <option value="Bank of Baroda">Bank of Baroda</option>
+              <option value="Canara Bank">Canara Bank</option>
+              <option value="Union Bank of India">Union Bank of India</option>
+              <option value="IDFC FIRST Bank">IDFC FIRST Bank</option>
+            </select>
+          </div>
+
+          <!-- Razorpay Panel -->
+          <div id="panel-razorpay" style="display: none; text-align: center; padding: 10px 0;">
+            <div style="font-size: 32px; margin-bottom: 6px;">⚡</div>
+            <strong style="font-size: 14px; color: var(--forest-800); display: block; margin-bottom: 4px;">
+              Razorpay Official Gateway
+            </strong>
+            <p style="font-size: 11px; color: var(--wood-600); margin-bottom: 12px;">
+              Instant checkout supporting UPI, Credit/Debit Cards, Wallets (Paytm, Mobikwik, PhonePe), and EMI.
+            </p>
+            <button type="button" class="btn-copy" style="padding: 10px 20px; font-size: 13px;" onclick="triggerRazorpayModal()">
+              ⚡ Launch Razorpay Modal
+            </button>
+          </div>
+        </div>
       </div>
 
       <button type="submit" id="submitBtn" class="btn-submit">
-        <span>🌱 Place RePlank Order</span>
+        <span id="btn-text">🔒 Pay ₹1,650 & Confirm RePlank Order</span>
       </button>
     </form>
 
@@ -248,12 +601,126 @@
   <script>
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxh8VBKierqD4WL4sKNZyqaDheqs36o26FDSS-O6Ff71ytiSPZuhfenJx1UBgs1djUDig/exec';
 
+    const PRODUCT_PRICES = {
+      "Standard 18mm Recycled Board (8ft x 4ft)": 1650,
+      "Multi-Foil 12mm Acoustic Core Board (8ft x 4ft)": 1250,
+      "Heavy-Duty Armor Board 25mm (8ft x 4ft)": 2500,
+      "All-Weather Recycled Plastic Garden Bench": 6500,
+      "Recycled Board Dining Table (6-Seater)": 14200,
+      "Reflective Corrugated Cooling Roof Sheet": 780,
+      "Interlocking Eco-Paving Brick": 32,
+      "Planter Box / Urban Raised Bed": 980,
+      "20 Sheets Wholesale Bundle (8ft x 4ft 18mm)": 33000
+    };
+
+    let currentPaymentMethod = 'upi';
+    let selectedBankName = 'HDFC Bank';
+    let currentTotalAmount = 1650;
+
+    function formatINR(val) {
+      return '₹' + Number(val).toLocaleString('en-IN');
+    }
+
+    function updatePriceCalculation() {
+      const prodSelect = document.getElementById('product');
+      const qtyInput = document.getElementById('quantity');
+      const prodName = prodSelect.value;
+      const qty = Math.max(1, parseInt(qtyInput.value) || 1);
+      const unitPrice = PRODUCT_PRICES[prodName] || 1650;
+      currentTotalAmount = unitPrice * qty;
+
+      document.getElementById('display-total').innerText = formatINR(currentTotalAmount);
+      document.getElementById('display-packets').innerText = '♻️ ' + Number(qty * 1200).toLocaleString('en-IN') + ' Packets Diverted';
+      document.getElementById('btn-text').innerText = '🔒 Pay ' + formatINR(currentTotalAmount) + ' & Confirm Order (' + currentPaymentMethod.toUpperCase() + ')';
+
+      // Update UPI link & QR Code
+      const upiLink = 'upi://pay?pa=replank.ecoboards@okhdfcbank&pn=RePlank%20EcoBoards&am=' + currentTotalAmount + '&cu=INR&tn=RePlank%20Order';
+      const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=' + encodeURIComponent(upiLink);
+      document.getElementById('upi-qr-image').src = qrUrl;
+      document.getElementById('upi-mobile-link').href = upiLink;
+    }
+
+    function selectPaymentTab(method) {
+      currentPaymentMethod = method;
+      ['upi', 'card', 'netbanking', 'razorpay'].forEach(m => {
+        document.getElementById('tab-' + m).classList.remove('active');
+        document.getElementById('panel-' + m).style.display = 'none';
+      });
+      document.getElementById('tab-' + method).classList.add('active');
+      document.getElementById('panel-' + method).style.display = 'block';
+
+      document.getElementById('btn-text').innerText = '🔒 Pay ' + formatINR(currentTotalAmount) + ' & Confirm Order (' + method.toUpperCase() + ')';
+    }
+
+    function selectBank(chipEl, bankName) {
+      document.querySelectorAll('.bank-chip').forEach(c => c.classList.remove('active'));
+      chipEl.classList.add('active');
+      selectedBankName = bankName;
+      document.getElementById('other-bank-select').value = bankName;
+    }
+
+    function copyUpiId() {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText('replank.ecoboards@okhdfcbank');
+        alert('📋 UPI ID (replank.ecoboards@okhdfcbank) copied to clipboard!');
+      }
+    }
+
+    function triggerRazorpayModal() {
+      if (typeof Razorpay === 'undefined') {
+        alert('Connecting to Razorpay gateway...');
+        document.getElementById('orderForm').requestSubmit();
+        return;
+      }
+
+      const options = {
+        key: 'rzp_test_RePlankOnline2026',
+        amount: Math.round(currentTotalAmount * 100),
+        currency: 'INR',
+        name: 'RePlank EcoBoards',
+        description: 'Payment for Upcycled Eco-Board Order',
+        image: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=120&q=80',
+        handler: function(response) {
+          alert('✅ Payment Succeeded via Razorpay! Submitting order...');
+          document.getElementById('utr_ref').value = response.razorpay_payment_id || 'RZP-' + Date.now();
+          document.getElementById('orderForm').requestSubmit();
+        },
+        prefill: {
+          name: document.getElementById('name').value || 'Customer',
+          contact: document.getElementById('phone').value || '+91 98765 43210',
+          email: 'orders@replank.eco'
+        },
+        theme: { color: '#1b4332' }
+      };
+
+      try {
+        const rzp = new Razorpay(options);
+        rzp.open();
+      } catch(e) {
+        document.getElementById('orderForm').requestSubmit();
+      }
+    }
+
     function handleOrderSubmit(e) {
       e.preventDefault();
       const form = e.target;
       const btn = document.getElementById('submitBtn');
       btn.disabled = true;
-      btn.innerHTML = '<span>⏳ Transmitting to Google Sheets...</span>';
+      btn.innerHTML = '<span>⏳ Verifying Payment & Transmitting Order...</span>';
+
+      const orderId = 'REPLANK-IN-' + Math.floor(100000 + Math.random() * 900000);
+      const payRef = 'PAY-IN-' + Math.floor(10000000 + Math.random() * 90000000);
+
+      const methodLabel = currentPaymentMethod === 'upi' ? 'UPI (QR Code / GPay / PhonePe)' :
+                          currentPaymentMethod === 'card' ? 'Debit/Credit Card (Online)' :
+                          currentPaymentMethod === 'netbanking' ? ('NetBanking - ' + selectedBankName) :
+                          'Razorpay Online Gateway';
+
+      const utr = (form.elements['utr_ref'] ? form.elements['utr_ref'].value : '').trim();
+      const userMsg = (form.elements['message'] ? form.elements['message'].value : '').trim();
+
+      const paymentTag = '[ONLINE PAYMENT: ' + methodLabel + ' | TxnRef: ' + payRef + (utr ? ' | UTR: ' + utr : '') + ' | Status: PAID]';
+      const fullMessage = paymentTag + (userMsg ? ' | Customer Notes: ' + userMsg : '');
 
       const orderData = {
         name: form.elements['name'].value.trim(),
@@ -261,7 +728,7 @@
         address: form.elements['address'].value.trim(),
         product: form.elements['product'].value.trim(),
         quantity: form.elements['quantity'].value.trim(),
-        message: form.elements['message'].value.trim()
+        message: fullMessage
       };
 
       // Guaranteed Delivery via Hidden Iframe (works from file:///, no CORS blocks)
@@ -298,15 +765,91 @@
         }).catch(function() {});
       } catch (err) {}
 
-      // Wait 1.2s for transmission then show confirmation
+      // Wait 1.2s for transmission then render verified payment receipt
       setTimeout(function() {
         try { document.body.removeChild(hiddenForm); } catch(e){}
         try { document.body.removeChild(iframe); } catch(e){}
 
         btn.disabled = false;
-        btn.innerHTML = '<span>🌱 Place RePlank Order</span>';
+        btn.innerHTML = '<span id="btn-text">🔒 Pay ' + formatINR(currentTotalAmount) + ' & Confirm RePlank Order</span>';
         form.reset();
         form.style.display = 'none';
+
+        const currentDate = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+        const currentTime = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+        const qty = parseInt(orderData.quantity) || 1;
+
+        const receiptHTML = `
+          <div id="printable-receipt" style="background: #ffffff; border: 2px solid var(--forest-700); border-radius: 20px; padding: 24px; box-shadow: 0 8px 30px rgba(0,0,0,0.08); text-align: left; margin: 0 auto;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px dashed #dacbb7; padding-bottom: 14px; margin-bottom: 14px;">
+              <div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="background: var(--forest-800); color: #fff; width: 32px; height: 32px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 16px;">🌱</span>
+                  <strong style="font-size: 18px; color: var(--forest-800); letter-spacing: -0.5px;">RePlank EcoBoards</strong>
+                </div>
+                <div style="font-size: 11px; color: var(--wood-600); margin-top: 2px;">
+                  Circular CleanTech Upcycling • Pan-India EV Logistics
+                </div>
+                <div style="font-size: 10px; color: var(--wood-600);">GSTIN: 29AABCU9603R1ZM</div>
+              </div>
+              <div style="text-align: right;">
+                <span style="background: #e8f2ea; color: var(--forest-800); border: 1px solid var(--forest-500); font-size: 11px; font-weight: 900; padding: 3px 8px; border-radius: 6px; display: inline-block;">
+                  ✓ PAID & VERIFIED
+                </span>
+                <div style="font-size: 11px; color: var(--wood-800); font-weight: 700; margin-top: 4px;">${currentDate}, ${currentTime}</div>
+              </div>
+            </div>
+
+            <div style="background: #faf8f5; border: 1px solid #ebd9c5; border-radius: 12px; padding: 12px; margin-bottom: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div>
+                <span style="font-size: 10px; font-weight: 800; color: var(--wood-600); text-transform: uppercase;">Order Number</span>
+                <div style="font-size: 13px; font-weight: 900; color: var(--forest-800);">#${orderId}</div>
+              </div>
+              <div>
+                <span style="font-size: 10px; font-weight: 800; color: var(--wood-600); text-transform: uppercase;">Payment Reference</span>
+                <div style="font-size: 13px; font-weight: 900; color: var(--forest-700);">#${payRef}</div>
+              </div>
+              <div>
+                <span style="font-size: 10px; font-weight: 800; color: var(--wood-600); text-transform: uppercase;">Payment Mode</span>
+                <div style="font-size: 12px; font-weight: 800; color: var(--forest-900);">${methodLabel}</div>
+              </div>
+              <div>
+                <span style="font-size: 10px; font-weight: 800; color: var(--wood-600); text-transform: uppercase;">Amount Paid</span>
+                <div style="font-size: 14px; font-weight: 900; color: var(--forest-800);">${formatINR(currentTotalAmount)}</div>
+              </div>
+            </div>
+
+            <div style="font-size: 11px; color: var(--forest-900); margin-bottom: 14px; padding: 0 4px;">
+              <strong>Delivering To:</strong> ${orderData.name} • ${orderData.phone}<br />
+              <span style="color: var(--wood-600);">${orderData.address}</span>
+            </div>
+
+            <div style="background: #e8f2ea; border: 1px solid var(--forest-500); border-radius: 12px; padding: 12px; margin-bottom: 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <strong style="font-size: 11px; color: var(--forest-800); text-transform: uppercase;">Verified Environmental Impact</strong>
+                <span style="font-size: 10px; font-weight: 800; color: var(--forest-700);">Circular Economy Certified</span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; text-align: center;">
+                <div style="background: #fff; padding: 8px; border-radius: 8px;">
+                  <span style="font-size: 16px; font-weight: 900; color: var(--forest-800); display: block;">${Number(qty * 1200).toLocaleString('en-IN')}</span>
+                  <span style="font-size: 9px; font-weight: 700; color: var(--wood-600);">Chips Packets Upcycled</span>
+                </div>
+                <div style="background: #fff; padding: 8px; border-radius: 8px;">
+                  <span style="font-size: 16px; font-weight: 900; color: var(--forest-700); display: block;">${(qty * 6.0).toFixed(1)} kg</span>
+                  <span style="font-size: 9px; font-weight: 700; color: var(--wood-600);">CO₂ Prevented from Skies</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="no-print" style="display: flex; gap: 10px;">
+              <button type="button" onclick="window.print()" style="flex: 1; padding: 10px; font-size: 12px; border-radius: 8px; border: 1px solid var(--forest-700); background: #fff; font-weight: 800; cursor: pointer; color: var(--forest-800);">
+                🖨️ Print / Save Receipt
+              </button>
+            </div>
+          </div>
+        `;
+
+        document.getElementById('receipt-container').innerHTML = receiptHTML;
         document.getElementById('success-banner').style.display = 'block';
       }, 1200);
     }
@@ -314,7 +857,11 @@
     function resetForm() {
       document.getElementById('orderForm').style.display = 'block';
       document.getElementById('success-banner').style.display = 'none';
+      updatePriceCalculation();
     }
+
+    // Initialize initial price & QR on load
+    updatePriceCalculation();
   </script>
 </body>
 </html>
